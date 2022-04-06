@@ -198,6 +198,11 @@
 #define ARCH_CPU_ALPHA21264 1
 #define ARCH_CPU_64_BITS 1
 #define ARCH_CPU_LITTLE_ENDIAN 1
+#elif defined(__loongarch__)
+#define ARCH_CPU_MIPS_FAMILY 1
+#define ARCH_CPU_MIPS64EL 1
+#define ARCH_CPU_64_BITS 1
+#define ARCH_CPU_LITTLE_ENDIAN 1
 #else
 #error Please add support for your architecture in build/build_config.h
 #endif
