@@ -3,8 +3,8 @@ Upstream-Name: deepin-pdfium
 Upstream-Contact: UnionTech Software Technology Co., Ltd. <>
 Source: https://gerrit.uniontech.com/admin/repos/deepin-pdfium
 
-# github
-Files: .github/*
+# github amd obs
+Files: .github/* .obs/*
 Copyright: None
 License: CC0-1.0
 
