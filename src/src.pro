@@ -30,6 +30,8 @@ INCLUDEPATH += $$PWD/../include
 
 PKGCONFIG += chardet lcms2 freetype2 libopenjp2
 
+LIBS += -lz -ljpeg -licuuc
+
 public_headers += \
     $$PWD/../include/dpdfglobal.h \
     $$PWD/../include/dpdfdoc.h \
