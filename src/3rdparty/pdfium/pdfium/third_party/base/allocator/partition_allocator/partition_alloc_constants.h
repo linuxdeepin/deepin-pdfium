@@ -6,6 +6,7 @@
 #define THIRD_PARTY_BASE_ALLOCATOR_PARTITION_ALLOCATOR_PARTITION_ALLOC_CONSTANTS_H_
 
 #include <limits.h>
+#include <math.h>
 
 #include "build/build_config.h"
 #include "third_party/base/allocator/partition_allocator/page_allocator_constants.h"
@@ -35,16 +36,22 @@ static const size_t kBucketShift = (kAllocationGranularity == 8) ? 3 : 2;
 // other constant values, we pack _all_ `PartitionRootGeneric::Alloc` sizes
 // perfectly up against the end of a system page.
 
-#if defined(_MIPS_ARCH_LOONGSON)
+#if defined(_MIPS_ARCH_LOONGSON) || defined(ARCH_CPU_LOONGARCH64)
 static const size_t kPartitionPageShift = 16;  // 64 KiB
 #elif defined(ARCH_CPU_PPC64)
 static const size_t kPartitionPageShift = 18;  // 256 KiB
+#elif defined(ARCH_CPU_SW64)
+static const size_t kPartitionPageShift = 15;  // 32 KiB
 #elif defined(OS_APPLE) && defined(ARCH_CPU_ARM64)
 static const size_t kPartitionPageShift = 16;  // 64 KiB
 #else
 //default page size changed to 64k
 //static const size_t kPartitionPageShift = 18;  // 256 KiB
+#if defined(SYSTEMPAGESIZE)
+static const size_t kPartitionPageShift = log2(SYSTEMPAGESIZE) + 2;
+#else
 static const size_t kPartitionPageShift = 14;  // 16 KiB
+#endif
 #endif
 static const size_t kPartitionPageSize = 1 << kPartitionPageShift;
 static const size_t kPartitionPageOffsetMask = kPartitionPageSize - 1;
