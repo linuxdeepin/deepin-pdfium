@@ -20,6 +20,8 @@ DEFINES +=  USE_SYSTEM_LIBJPEG \
             USE_SYSTEM_LIBOPENJPEG2 \
             USE_SYSTEM_FREETYPE
 
+CONFIG += link_pkgconfig
+PKGCONFIG += libopenjp2 lcms2 freetype2
 
 #QMAKE_CXXFLAGS += "-Wc++11-narrowing"  #is_clang
 #QMAKE_CXXFLAGS += "-Wno-inconsistent-missing-override"  #is_clang Suppress no override warning for overridden functions.
@@ -40,7 +42,7 @@ contains(QMAKE_HOST.arch, loongarch64):{
     DEFINES += _MIPS_ARCH_LOONGSON  #龙芯loongarch64 调整最小页尺寸
 }
 
-contains(QMAKE_HOST.arch, sw64):{
+contains(QMAKE_HOST.arch, sw_64)||contains(QMAKE_HOST.arch, sw64):{
     DEFINES += ARCH_CPU_SW64
     QMAKE_CXXFLAGS += "-fPIC"
 }
