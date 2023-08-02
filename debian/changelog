@@ -1,3 +1,9 @@
+deepin-pdfium (1.0.2) stable; urgency=medium
+
+  * update V6 base line version to 1.0.2
+
+ -- lvwujun <lvwujun@uniontech.com>  Wed, 2 Aug 2023 11:43:21 +0800
+
 deepin-pdfium (1.0.1) stable; urgency=medium
 
   * update V6 base line version.
