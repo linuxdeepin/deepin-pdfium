@@ -2,7 +2,19 @@ Source: deepin-pdfium
 Section: libdevel
 Priority: optional
 Maintainer: deepin <packages@deepin.com>
-Build-Depends: debhelper (>= 11), qtbase5-dev, qt5-qmake, pkg-config, libjpeg-dev, libicu-dev, libpng-dev, zlib1g-dev, liblcms2-dev, libopenjp2-7-dev, libfreetype6-dev, libgtest-dev, libchardet-dev
+Build-Depends: debhelper (>= 11),
+ cmake,
+ qt6-base-dev,
+ pkg-config,
+ libjpeg-dev,
+ libicu-dev,
+ libpng-dev,
+ zlib1g-dev,
+ liblcms2-dev,
+ libopenjp2-7-dev,
+ libfreetype6-dev,
+ libgtest-dev,
+ libchardet-dev
 Standards-Version: 4.3.0
 
 Package: libdeepin-pdfium

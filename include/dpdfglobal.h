@@ -6,6 +6,7 @@
 #define DPDFGLOBAL_H
 
 #include <QtCore/qglobal.h>
+#include <QMutex>
 #include <QMutexLocker>
 #include <QDebug>
 #include <QTime>
@@ -49,7 +50,7 @@ private:
 };
 
 //pdfium即使不同文档之间loadpage和renderpage也不是线程安全，需要加锁
-class DPdfMutexLocker : public QMutexLocker
+class DEEPDF_EXPORT DPdfMutexLocker : public QMutexLocker<QRecursiveMutex>
 {
 public:
     DPdfMutexLocker(const QString &tmpLog);
