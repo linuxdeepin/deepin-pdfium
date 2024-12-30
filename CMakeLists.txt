@@ -36,8 +36,8 @@ add_definitions(-DSYSTEMPAGESIZE=${SYSTEM_PAGE_SIZE})
 # 定义构建宏
 add_definitions(-DBUILD_DEEPDF_LIB)
 
-# 查找依赖包
-find_package(Qt5 COMPONENTS Core Gui REQUIRED)
+# 查找Qt6依赖包
+find_package(Qt6 COMPONENTS Core Gui REQUIRED)
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(DEPS REQUIRED
     chardet
@@ -67,8 +67,8 @@ target_include_directories(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME}
     PRIVATE
         pdfium
-        Qt5::Core
-        Qt5::Gui
+        Qt6::Core
+        Qt6::Gui
         ${DEPS_LIBRARIES}
         z
         jpeg

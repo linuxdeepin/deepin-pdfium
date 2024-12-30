@@ -49,7 +49,7 @@ QString DPdfGlobal::textCodeType(const char *text)
     return encodeind;
 }
 
-Q_GLOBAL_STATIC_WITH_ARGS(QMutex, pdfMutex, (QMutex::Recursive));
+Q_GLOBAL_STATIC(QRecursiveMutex, pdfMutex);
 
 DPdfMutexLocker::DPdfMutexLocker(const QString &tmpLog): QMutexLocker(pdfMutex())
 {
