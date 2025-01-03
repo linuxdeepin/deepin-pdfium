@@ -1,0 +1,23 @@
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+
+# 设置路径
+set_and_check(DEEPIN_PDFIUM_INCLUDE_DIR "@PACKAGE_INCLUDE_INSTALL_DIR@")
+set_and_check(DEEPIN_PDFIUM_LIBRARY_DIR "@PACKAGE_LIB_INSTALL_DIR@")
+
+# 检查依赖
+find_dependency(PkgConfig)
+pkg_check_modules(PDFIUM_DEPS REQUIRED
+    libopenjp2
+    lcms2
+    freetype2
+    zlib
+    libpng
+    libjpeg
+)
+
+# 包含导出的目标
+include("${CMAKE_CURRENT_LIST_DIR}/deepin-pdfiumTargets.cmake")
+
+check_required_components(deepin-pdfium) 

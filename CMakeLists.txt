@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 3.15)
 
+set(VERSION "1.0.0" CACHE STRING "PDF rendering library based on PDFium")
+
 project(deepin-pdfium 
-    VERSION 1.0.0
+    VERSION ${VERSION}
     DESCRIPTION "PDF rendering library based on PDFium"
     LANGUAGES CXX C
 )
@@ -9,6 +11,10 @@ project(deepin-pdfium
 # 设置C++标准
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
 
 # 编译选项
 add_compile_options(
@@ -33,9 +39,6 @@ execute_process(
 )
 add_definitions(-DSYSTEMPAGESIZE=${SYSTEM_PAGE_SIZE})
 
-# 定义构建宏
-add_definitions(-DBUILD_DEEPDF_LIB)
-
 # 查找Qt6依赖包
 find_package(Qt6 COMPONENTS Core Gui REQUIRED)
 find_package(PkgConfig REQUIRED)
@@ -51,15 +54,26 @@ add_subdirectory(src/3rdparty/pdfium)
 
 # 主库目标
 add_library(${PROJECT_NAME} SHARED
+    include/dpdfglobal.h
+    include/dpdfdoc.h
+    include/dpdfpage.h
+    include/dpdfannot.h
     src/dpdfglobal.cpp
     src/dpdfdoc.cpp  
     src/dpdfpage.cpp
     src/dpdfannot.cpp
 )
 
+# 设置库的版本信息和 SOVERSION
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    VERSION "${PROJECT_VERSION}"
+    SOVERSION "${PROJECT_VERSION_MAJOR}"
+)
+
 target_include_directories(${PROJECT_NAME} 
     PUBLIC 
-        ${CMAKE_CURRENT_SOURCE_DIR}/include
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/deepin-pdfium>
     PRIVATE
         ${DEPS_INCLUDE_DIRS}
 )
@@ -100,4 +114,35 @@ configure_file(
 install(
     FILES ${CMAKE_CURRENT_BINARY_DIR}/deepin-pdfium.pc
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig
+)
+
+include(CMakePackageConfigHelpers)
+
+set(INCLUDE_INSTALL_DIR ${CMAKE_INSTALL_INCLUDEDIR}/deepin-pdfium)
+set(LIB_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR})
+
+configure_package_config_file(
+    misc/deepin-pdfiumConfig.cmake.in
+    ${CMAKE_CURRENT_BINARY_DIR}/deepin-pdfiumConfig.cmake
+    INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/deepin-pdfium
+    PATH_VARS INCLUDE_INSTALL_DIR LIB_INSTALL_DIR
+)
+
+install(FILES
+    ${CMAKE_CURRENT_BINARY_DIR}/deepin-pdfiumConfig.cmake
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/deepin-pdfium
+)
+
+install(TARGETS deepin-pdfium
+    EXPORT deepin-pdfiumTargets
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+
+install(EXPORT deepin-pdfiumTargets
+    FILE deepin-pdfiumTargets.cmake
+    NAMESPACE deepin-pdfium::
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/deepin-pdfium
 ) 

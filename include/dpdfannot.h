@@ -12,7 +12,7 @@
 #include <QList>
 #include <QColor>
 
-class DEEPDF_EXPORT DPdfAnnot
+class DPdfAnnot
 {
 public:
     enum AnnotType {
@@ -52,7 +52,7 @@ protected:
     QString m_text;
 };
 
-class DEEPDF_EXPORT DPdfTextAnnot : public DPdfAnnot
+class DPdfTextAnnot : public DPdfAnnot
 {
     friend class DPdfPage;
     friend class DPdfPagePrivate;
@@ -69,7 +69,7 @@ private:
     QRectF m_rect;
 };
 
-class DEEPDF_EXPORT DPdfSquareAnnot : public DPdfAnnot
+class DPdfSquareAnnot : public DPdfAnnot
 {
 public:
     DPdfSquareAnnot();
@@ -84,7 +84,7 @@ private:
     QRectF m_rect;
 };
 
-class DEEPDF_EXPORT DPdfCIRCLEAnnot : public DPdfAnnot
+class DPdfCIRCLEAnnot : public DPdfAnnot
 {
     friend class DPdfPage;
     friend class DPdfPagePrivate;
@@ -104,7 +104,7 @@ private:
     QRectF m_rect;
 };
 
-class DEEPDF_EXPORT DPdfHightLightAnnot : public DPdfAnnot
+class DPdfHightLightAnnot : public DPdfAnnot
 {
     friend class DPdfPage;
     friend class DPdfPagePrivate;
@@ -126,7 +126,7 @@ private:
     QColor m_color;
 };
 
-class DEEPDF_EXPORT DPdfLinkAnnot : public DPdfAnnot
+class DPdfLinkAnnot : public DPdfAnnot
 {
 public:
     DPdfLinkAnnot();
@@ -175,7 +175,7 @@ private:
     float m_top = 0;
 };
 
-class DEEPDF_EXPORT DPdfWidgetAnnot : public DPdfAnnot
+class DPdfWidgetAnnot : public DPdfAnnot
 {
 public:
     DPdfWidgetAnnot();
@@ -186,7 +186,7 @@ public:
 
 };
 
-class DEEPDF_EXPORT DPdfUnknownAnnot : public DPdfAnnot
+class DPdfUnknownAnnot : public DPdfAnnot
 {
 public:
     DPdfUnknownAnnot();
@@ -197,7 +197,7 @@ public:
 
 };
 
-class DEEPDF_EXPORT DPdfUnderlineAnnot : public DPdfAnnot
+class DPdfUnderlineAnnot : public DPdfAnnot
 {
 public:
     DPdfUnderlineAnnot();
