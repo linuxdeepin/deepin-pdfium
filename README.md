@@ -4,11 +4,18 @@ development library for pdf on Deepin.
 
 ### Build dependencies
 
-- qtbase5-dev
-- chardet
--  lcms2 
-- freetype2 
-- libopenjp2
+- cmake,
+- qt6-base-dev,
+- pkg-config,
+- libjpeg-dev,
+- libicu-dev,
+- libpng-dev,
+- zlib1g-dev,
+- liblcms2-dev,
+- libopenjp2-7-dev,
+- libfreetype6-dev,
+- libgtest-dev,
+- libchardet-dev
 
 ### Build from source code
 
