@@ -1,2 +1,3 @@
 /usr/include/deepin-pdfium/*
 /usr/lib/*/pkgconfig/deepin-pdfium.pc
+/usr/lib/*/cmake/deepin-pdfium/*

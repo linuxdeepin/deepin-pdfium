@@ -17,7 +17,7 @@
 class DPdfPage;
 class DPdfDocHandler;
 class DPdfDocPrivate;
-class DEEPDF_EXPORT DPdfDoc : public QObject
+class DPdfDoc : public QObject
 {
     Q_OBJECT
     Q_DECLARE_PRIVATE(DPdfDoc)

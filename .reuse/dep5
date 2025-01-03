@@ -19,7 +19,7 @@ Copyright: None
 License: CC0-1.0
 
 # Project file
-Files: *CMakeLists.txt *pc.in
+Files: *CMakeLists.txt *pc.in *.cmake.in
 Copyright: None
 License: CC0-1.0
 
