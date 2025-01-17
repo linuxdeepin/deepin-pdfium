@@ -1,6 +1,6 @@
 # deepin-pdfium
 
-development library for pdf on Deepin.
+Development library for PDF on deepin.
 
 ### Build dependencies
 
