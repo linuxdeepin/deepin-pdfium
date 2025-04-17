@@ -8,7 +8,7 @@
 
 #include "core/fpdfapi/font/cpdf_font.h"
 #include "core/fpdfapi/parser/cpdf_dictionary.h"
-#include "third_party/base/stl_util.h"
+#include "base/stl_util.h"
 
 CFX_StockFontArray::CFX_StockFontArray() = default;
 

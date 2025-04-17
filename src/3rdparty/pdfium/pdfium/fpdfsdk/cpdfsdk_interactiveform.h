@@ -16,7 +16,7 @@
 #include "core/fxcrt/unowned_ptr.h"
 #include "core/fxge/fx_dib.h"
 #include "fpdfsdk/cpdfsdk_widget.h"
-#include "third_party/base/optional.h"
+#include "base/optional.h"
 
 class CPDF_Dictionary;
 class CPDF_FormControl;

@@ -62,8 +62,8 @@
 #include "core/fxge/renderdevicedriver_iface.h"
 #include "core/fxge/text_char_pos.h"
 #include "core/fxge/text_glyph_pos.h"
-#include "third_party/base/logging.h"
-#include "third_party/base/stl_util.h"
+#include "base/logging.h"
+#include "base/stl_util.h"
 
 #if defined(_SKIA_SUPPORT_)
 #include "core/fxge/skia/fx_skia_device.h"

@@ -10,7 +10,7 @@
 #include "core/fxcrt/fx_system.h"
 #include "core/fxcrt/retain_ptr.h"
 #include "core/fxcrt/unowned_ptr.h"
-#include "third_party/base/span.h"
+#include "base/span.h"
 
 class CFX_DIBBase;
 class CFX_DIBitmap;

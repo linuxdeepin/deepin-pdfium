@@ -4,7 +4,7 @@
 
 #include "core/fxcrt/observed_ptr.h"
 
-#include "third_party/base/stl_util.h"
+#include "base/stl_util.h"
 
 namespace fxcrt {
 

@@ -9,7 +9,7 @@
 #include <utility>
 
 #include "core/fxge/cfx_fontmapper.h"
-#include "third_party/base/stl_util.h"
+#include "base/stl_util.h"
 
 namespace {
 

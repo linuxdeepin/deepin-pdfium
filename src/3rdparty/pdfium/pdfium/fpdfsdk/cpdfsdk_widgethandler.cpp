@@ -19,7 +19,7 @@
 #include "fpdfsdk/cpdfsdk_pageview.h"
 #include "fpdfsdk/cpdfsdk_widget.h"
 #include "fpdfsdk/formfiller/cffl_formfiller.h"
-#include "third_party/base/stl_util.h"
+#include "base/stl_util.h"
 
 CPDFSDK_WidgetHandler::CPDFSDK_WidgetHandler() = default;
 

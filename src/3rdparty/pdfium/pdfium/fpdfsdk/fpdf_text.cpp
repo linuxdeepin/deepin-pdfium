@@ -20,8 +20,8 @@
 #include "core/fpdftext/cpdf_textpage.h"
 #include "core/fpdftext/cpdf_textpagefind.h"
 #include "fpdfsdk/cpdfsdk_helpers.h"
-#include "third_party/base/numerics/safe_conversions.h"
-#include "third_party/base/stl_util.h"
+#include "base/numerics/safe_conversions.h"
+#include "base/stl_util.h"
 
 #if defined(OS_WIN)
 #include <tchar.h>

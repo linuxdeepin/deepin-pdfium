@@ -10,8 +10,8 @@
 #include <memory>
 
 #include "build/build_config.h"
-#include "third_party/base/optional.h"
-#include "third_party/base/span.h"
+#include "base/optional.h"
+#include "base/span.h"
 
 #if defined(OS_WIN)
 #include "core/fxcrt/retain_ptr.h"

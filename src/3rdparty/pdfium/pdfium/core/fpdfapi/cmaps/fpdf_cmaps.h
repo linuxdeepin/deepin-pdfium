@@ -10,7 +10,7 @@
 #include <stdint.h>
 
 #include "core/fxcrt/fx_string.h"
-#include "third_party/base/span.h"
+#include "base/span.h"
 
 struct FXCMAP_DWordCIDMap {
   uint16_t m_HiWord;

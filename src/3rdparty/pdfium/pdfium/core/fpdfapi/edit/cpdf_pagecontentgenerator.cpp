@@ -34,8 +34,8 @@
 #include "core/fpdfapi/parser/cpdf_stream.h"
 #include "core/fpdfapi/parser/fpdf_parser_decode.h"
 #include "core/fpdfapi/parser/fpdf_parser_utility.h"
-#include "third_party/base/span.h"
-#include "third_party/base/stl_util.h"
+#include "base/span.h"
+#include "base/stl_util.h"
 
 namespace {
 

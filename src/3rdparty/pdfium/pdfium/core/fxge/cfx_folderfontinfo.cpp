@@ -16,7 +16,7 @@
 #include "core/fxcrt/fx_stream.h"
 #include "core/fxge/cfx_fontmapper.h"
 #include "core/fxge/fx_font.h"
-#include "third_party/base/stl_util.h"
+#include "base/stl_util.h"
 
 #define CHARSET_FLAG_ANSI (1 << 0)
 #define CHARSET_FLAG_SYMBOL (1 << 1)

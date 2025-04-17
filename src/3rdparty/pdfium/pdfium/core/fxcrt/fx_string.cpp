@@ -9,8 +9,8 @@
 #include "core/fxcrt/cfx_utf8decoder.h"
 #include "core/fxcrt/cfx_utf8encoder.h"
 #include "core/fxcrt/fx_extension.h"
-#include "third_party/base/compiler_specific.h"
-#include "third_party/base/stl_util.h"
+#include "base/compiler_specific.h"
+#include "base/stl_util.h"
 
 ByteString FX_UTF8Encode(WideStringView wsStr) {
   CFX_UTF8Encoder encoder;

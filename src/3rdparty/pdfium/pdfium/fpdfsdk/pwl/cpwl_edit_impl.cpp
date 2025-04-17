@@ -26,7 +26,7 @@
 #include "fpdfsdk/pwl/cpwl_edit_ctrl.h"
 #include "fpdfsdk/pwl/cpwl_scroll_bar.h"
 #include "fpdfsdk/pwl/ipwl_systemhandler.h"
-#include "third_party/base/compiler_specific.h"
+#include "base/compiler_specific.h"
 
 namespace {
 

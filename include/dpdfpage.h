@@ -21,7 +21,7 @@ class DPdfPage : public QObject
     friend class DPdfDoc;
 
 public:
-    virtual ~DPdfPage();
+    ~DPdfPage();
 
     /**
      * @brief 是否有效

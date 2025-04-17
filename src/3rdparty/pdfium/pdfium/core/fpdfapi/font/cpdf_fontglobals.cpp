@@ -12,7 +12,7 @@
 #include "core/fpdfapi/cmaps/Korea1/cmaps_korea1.h"
 #include "core/fpdfapi/font/cfx_stockfontarray.h"
 #include "core/fpdfapi/parser/cpdf_document.h"
-#include "third_party/base/stl_util.h"
+#include "base/stl_util.h"
 
 namespace {
 

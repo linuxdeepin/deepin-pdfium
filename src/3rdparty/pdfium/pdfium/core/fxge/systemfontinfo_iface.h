@@ -8,7 +8,7 @@
 #define CORE_FXGE_SYSTEMFONTINFO_IFACE_H_
 
 #include "core/fxge/cfx_fontmapper.h"
-#include "third_party/base/span.h"
+#include "base/span.h"
 
 constexpr uint32_t kTableNAME = CFX_FontMapper::MakeTag('n', 'a', 'm', 'e');
 constexpr uint32_t kTableTTCF = CFX_FontMapper::MakeTag('t', 't', 'c', 'f');

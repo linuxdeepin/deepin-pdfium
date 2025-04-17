@@ -10,7 +10,7 @@
 #include <stdint.h>
 
 #include "core/fxcrt/unowned_ptr.h"
-#include "third_party/base/span.h"
+#include "base/span.h"
 
 class CFX_BitStream {
  public:

@@ -22,7 +22,7 @@
 #include "core/fxge/dib/cfx_dibitmap.h"
 #include "core/fxge/fx_freetype.h"
 #include "core/fxge/scoped_font_transform.h"
-#include "third_party/base/numerics/safe_math.h"
+#include "base/numerics/safe_math.h"
 
 #if defined(_SKIA_SUPPORT_) || defined(_SKIA_SUPPORT_PATHS_)
 #include "third_party/skia/include/core/SkStream.h"  // nogncheck

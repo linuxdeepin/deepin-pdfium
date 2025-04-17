@@ -8,7 +8,7 @@
 #define CORE_FDRM_FX_CRYPT_H_
 
 #include "core/fxcrt/fx_system.h"
-#include "third_party/base/span.h"
+#include "base/span.h"
 
 constexpr int32_t kRC4ContextPermutationLength = 256;
 struct CRYPT_rc4_context {

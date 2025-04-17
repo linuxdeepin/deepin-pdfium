@@ -9,7 +9,7 @@
 #include <utility>
 
 #include "core/fdrm/fx_crypt.h"
-#include "third_party/base/stl_util.h"
+#include "base/stl_util.h"
 
 namespace {
 

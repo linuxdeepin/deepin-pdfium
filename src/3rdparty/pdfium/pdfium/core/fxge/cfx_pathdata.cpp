@@ -7,7 +7,7 @@
 #include "core/fxge/cfx_pathdata.h"
 
 #include "core/fxcrt/fx_system.h"
-#include "third_party/base/numerics/safe_math.h"
+#include "base/numerics/safe_math.h"
 
 namespace {
 

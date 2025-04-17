@@ -11,7 +11,7 @@
 #include "core/fpdfdoc/cline.h"
 #include "core/fpdfdoc/cpdf_variabletext.h"
 #include "core/fpdfdoc/cpvt_wordinfo.h"
-#include "third_party/base/stl_util.h"
+#include "base/stl_util.h"
 
 CSection::CSection(CPDF_VariableText* pVT) : m_pVT(pVT) {
   ASSERT(m_pVT);

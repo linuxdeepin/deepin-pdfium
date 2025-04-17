@@ -13,7 +13,7 @@
 
 #include "core/fxcrt/fx_memory_wrappers.h"
 #include "core/fxcrt/unowned_ptr.h"
-#include "third_party/base/span.h"
+#include "base/span.h"
 
 class CPDF_CryptoHandler;
 

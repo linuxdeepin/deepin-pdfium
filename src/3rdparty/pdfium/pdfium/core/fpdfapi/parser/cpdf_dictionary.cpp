@@ -19,8 +19,8 @@
 #include "core/fpdfapi/parser/cpdf_string.h"
 #include "core/fpdfapi/parser/fpdf_parser_utility.h"
 #include "core/fxcrt/fx_stream.h"
-#include "third_party/base/logging.h"
-#include "third_party/base/stl_util.h"
+#include "base/logging.h"
+#include "base/stl_util.h"
 
 CPDF_Dictionary::CPDF_Dictionary()
     : CPDF_Dictionary(WeakPtr<ByteStringPool>()) {}

@@ -47,13 +47,13 @@
 #include "fpdfsdk/cpdfsdk_renderpage.h"
 #include "fxjs/ijs_runtime.h"
 #include "public/fpdf_formfill.h"
-#include "third_party/base/ptr_util.h"
-#include "third_party/base/span.h"
-#include "third_party/base/stl_util.h"
+#include "base/ptr_util.h"
+#include "base/span.h"
+#include "base/stl_util.h"
 
 #ifdef PDF_ENABLE_V8
 #include "fxjs/cfx_v8.h"
-#include "third_party/base/no_destructor.h"
+#include "base/no_destructor.h"
 #endif
 
 #ifdef PDF_ENABLE_XFA
@@ -184,11 +184,13 @@ FPDF_InitLibraryWithConfig(const FPDF_LIBRARY_CONFIG *config)
     CPDFXFA_ModuleInit();
 #endif  // PDF_ENABLE_XFA
 
+#ifdef PDF_ENABLE_JS
     if (config && config->version >= 2) {
         void *platform = config->version >= 3 ? config->m_pPlatform : nullptr;
         IJS_Runtime::Initialize(config->m_v8EmbedderSlot, config->m_pIsolate,
                                 platform);
     }
+#endif
     g_bLibraryInitialized = true;
 }
 
@@ -203,7 +205,9 @@ FPDF_EXPORT void FPDF_CALLCONV FPDF_DestroyLibrary()
 
     CPDF_PageModule::Destroy();
     CFX_GEModule::Destroy();
+#ifdef PDF_ENABLE_JS
     IJS_Runtime::Destroy();
+#endif
 
     g_bLibraryInitialized = false;
 }

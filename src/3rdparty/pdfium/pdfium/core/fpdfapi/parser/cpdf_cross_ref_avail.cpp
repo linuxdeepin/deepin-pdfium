@@ -9,8 +9,8 @@
 #include "core/fpdfapi/parser/cpdf_reference.h"
 #include "core/fpdfapi/parser/cpdf_syntax_parser.h"
 #include "core/fpdfapi/parser/fpdf_parser_utility.h"
-#include "third_party/base/numerics/safe_conversions.h"
-#include "third_party/base/stl_util.h"
+#include "base/numerics/safe_conversions.h"
+#include "base/stl_util.h"
 
 namespace {
 

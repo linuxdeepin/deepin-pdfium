@@ -16,8 +16,8 @@
 #include "core/fxcodec/scanlinedecoder.h"
 #include "core/fxcrt/cfx_binarybuf.h"
 #include "core/fxcrt/fx_memory_wrappers.h"
-#include "third_party/base/logging.h"
-#include "third_party/base/stl_util.h"
+#include "base/logging.h"
+#include "base/stl_util.h"
 
 namespace fxcodec {
 

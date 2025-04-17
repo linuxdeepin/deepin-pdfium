@@ -8,7 +8,7 @@
 #include <stdlib.h>  // For size_t.
 
 #include "core/fxcrt/fx_system.h"
-#include "third_party/base/numerics/safe_math.h"
+#include "base/numerics/safe_math.h"
 
 using FX_SAFE_UINT32 = pdfium::base::CheckedNumeric<uint32_t>;
 using FX_SAFE_INT32 = pdfium::base::CheckedNumeric<int32_t>;

@@ -12,7 +12,7 @@
 
 #include "core/fxcrt/fx_string.h"
 #include "core/fxcrt/fx_system.h"
-#include "third_party/base/span.h"
+#include "base/span.h"
 
 class CPDF_PSEngine;
 class CPDF_PSProc;

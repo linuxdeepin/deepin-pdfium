@@ -23,8 +23,8 @@
 #include "core/fxge/cfx_substfont.h"
 #include "core/fxge/fx_font.h"
 #include "core/fxge/scoped_font_transform.h"
-#include "third_party/base/span.h"
-#include "third_party/base/stl_util.h"
+#include "base/span.h"
+#include "base/stl_util.h"
 
 #define EM_ADJUST(em, a) (em == 0 ? (a) : (a)*1000 / em)
 

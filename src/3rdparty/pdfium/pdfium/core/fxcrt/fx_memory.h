@@ -22,7 +22,7 @@ void FXMEM_DefaultFree(void* pointer);
 #ifdef __cplusplus
 }  // extern "C"
 
-#include "third_party/base/compiler_specific.h"
+#include "base/compiler_specific.h"
 
 namespace pdfium {
 namespace base {

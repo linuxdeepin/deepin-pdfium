@@ -16,8 +16,8 @@
 #include "core/fpdfdoc/csection.h"
 #include "core/fpdfdoc/ipvt_fontmap.h"
 #include "core/fxcrt/fx_codepage.h"
-#include "third_party/base/compiler_specific.h"
-#include "third_party/base/stl_util.h"
+#include "base/compiler_specific.h"
+#include "base/stl_util.h"
 
 namespace {
 
