@@ -3,8 +3,8 @@ exec_prefix=${prefix}
 libdir=${prefix}/@CMAKE_INSTALL_LIBDIR@
 includedir=${prefix}/@CMAKE_INSTALL_INCLUDEDIR@/deepin-pdfium
 
-Name: @PROJECT_NAME@
-Description: @PROJECT_DESCRIPTION@
+Name: @TARGET_NAME@
+Description: @PROJECT_DESCRIPTION@ (Qt@QT_DESIRED_VERSION@ version)
 Version: @PROJECT_VERSION@
-Libs: -L${libdir} -ldeepin-pdfium
+Libs: -L${libdir} -l@TARGET_NAME@
 Cflags: -I${includedir}
