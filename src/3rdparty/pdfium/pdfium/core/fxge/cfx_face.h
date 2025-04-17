@@ -8,7 +8,7 @@
 #include "core/fxcrt/observed_ptr.h"
 #include "core/fxcrt/retain_ptr.h"
 #include "core/fxge/fx_freetype.h"
-#include "third_party/base/span.h"
+#include "base/span.h"
 
 class CFX_Face : public Retainable, public Observable {
  public:

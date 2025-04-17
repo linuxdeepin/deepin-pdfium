@@ -13,8 +13,8 @@
 #include <vector>
 
 #include "core/fxcrt/fx_system.h"
-#include "third_party/base/optional.h"
-#include "third_party/base/span.h"
+#include "base/optional.h"
+#include "base/span.h"
 
 namespace fxcrt {
 

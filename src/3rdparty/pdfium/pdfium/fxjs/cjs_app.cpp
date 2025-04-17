@@ -14,7 +14,7 @@
 #include "fxjs/global_timer.h"
 #include "fxjs/ijs_event_context.h"
 #include "fxjs/js_resources.h"
-#include "third_party/base/stl_util.h"
+#include "base/stl_util.h"
 
 #define JS_STR_VIEWERTYPE L"pdfium"
 #define JS_STR_VIEWERVARIATION L"Full"

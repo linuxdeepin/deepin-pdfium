@@ -18,9 +18,9 @@
 #include "core/fxcrt/fx_extension.h"
 #include "core/fxcrt/fx_safe_types.h"
 #include "core/fxcrt/string_pool_template.h"
-#include "third_party/base/numerics/safe_math.h"
-#include "third_party/base/span.h"
-#include "third_party/base/stl_util.h"
+#include "base/numerics/safe_math.h"
+#include "base/span.h"
+#include "base/stl_util.h"
 
 template class fxcrt::StringDataTemplate<char>;
 template class fxcrt::StringViewTemplate<char>;

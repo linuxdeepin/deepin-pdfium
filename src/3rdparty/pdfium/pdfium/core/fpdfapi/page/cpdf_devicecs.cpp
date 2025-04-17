@@ -15,8 +15,8 @@
 #include "core/fpdfapi/parser/cpdf_string.h"
 #include "core/fxcodec/fx_codec.h"
 #include "core/fxge/dib/cfx_cmyk_to_srgb.h"
-#include "third_party/base/logging.h"
-#include "third_party/base/stl_util.h"
+#include "base/logging.h"
+#include "base/stl_util.h"
 
 namespace {
 

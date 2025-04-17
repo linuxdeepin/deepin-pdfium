@@ -12,7 +12,7 @@
 #include "core/fpdfdoc/cpdf_dest.h"
 #include "core/fxcrt/fx_string.h"
 #include "core/fxcrt/retain_ptr.h"
-#include "third_party/base/optional.h"
+#include "base/optional.h"
 
 class CPDF_Dictionary;
 class CPDF_Document;

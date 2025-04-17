@@ -14,7 +14,7 @@
 #include "core/fpdfapi/parser/cpdf_syntax_parser.h"
 #include "core/fpdfapi/parser/fpdf_parser_utility.h"
 #include "core/fxcrt/cfx_readonlymemorystream.h"
-#include "third_party/base/span.h"
+#include "base/span.h"
 
 CFDF_Document::CFDF_Document() = default;
 

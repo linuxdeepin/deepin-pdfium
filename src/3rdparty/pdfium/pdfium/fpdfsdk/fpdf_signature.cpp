@@ -8,7 +8,7 @@
 #include "core/fpdfapi/parser/cpdf_dictionary.h"
 #include "core/fpdfapi/parser/cpdf_document.h"
 #include "fpdfsdk/cpdfsdk_helpers.h"
-#include "third_party/base/stl_util.h"
+#include "base/stl_util.h"
 
 namespace {
 

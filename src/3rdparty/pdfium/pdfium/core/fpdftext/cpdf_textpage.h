@@ -17,7 +17,7 @@
 #include "core/fxcrt/fx_memory_wrappers.h"
 #include "core/fxcrt/fx_string.h"
 #include "core/fxcrt/unowned_ptr.h"
-#include "third_party/base/optional.h"
+#include "base/optional.h"
 
 class CPDF_Font;
 class CPDF_FormObject;

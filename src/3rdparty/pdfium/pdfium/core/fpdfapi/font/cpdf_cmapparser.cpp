@@ -13,8 +13,8 @@
 #include "core/fxcrt/fx_extension.h"
 #include "core/fxcrt/fx_safe_types.h"
 #include "core/fxge/fx_freetype.h"
-#include "third_party/base/logging.h"
-#include "third_party/base/stl_util.h"
+#include "base/logging.h"
+#include "base/stl_util.h"
 
 namespace {
 

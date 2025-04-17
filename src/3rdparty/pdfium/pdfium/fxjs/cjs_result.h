@@ -8,7 +8,7 @@
 #define FXJS_CJS_RESULT_H_
 
 #include "fxjs/js_resources.h"
-#include "third_party/base/optional.h"
+#include "base/optional.h"
 #include "v8/include/v8.h"
 
 class CJS_Result {

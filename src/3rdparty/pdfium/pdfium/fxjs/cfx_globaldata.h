@@ -13,8 +13,8 @@
 #include "core/fxcrt/cfx_binarybuf.h"
 #include "core/fxcrt/unowned_ptr.h"
 #include "fxjs/cfx_keyvalue.h"
-#include "third_party/base/optional.h"
-#include "third_party/base/span.h"
+#include "base/optional.h"
+#include "base/span.h"
 
 class CPDFSDK_FormFillEnvironment;
 

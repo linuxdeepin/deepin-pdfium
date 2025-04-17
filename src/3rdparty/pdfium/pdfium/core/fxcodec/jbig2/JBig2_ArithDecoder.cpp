@@ -7,7 +7,7 @@
 #include "core/fxcodec/jbig2/JBig2_ArithDecoder.h"
 
 #include "core/fxcodec/jbig2/JBig2_BitStream.h"
-#include "third_party/base/stl_util.h"
+#include "base/stl_util.h"
 
 namespace {
 

@@ -15,8 +15,8 @@
 #include "core/fxcrt/observed_ptr.h"
 #include "core/fxcrt/retain_ptr.h"
 #include "core/fxge/fx_freetype.h"
-#include "third_party/base/optional.h"
-#include "third_party/base/span.h"
+#include "base/optional.h"
+#include "base/span.h"
 
 class CFX_Face;
 class CFX_FontMapper;

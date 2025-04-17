@@ -13,7 +13,7 @@
 #include "core/fxcrt/fx_string.h"
 #include "core/fxcrt/fx_system.h"
 #include "core/fxge/fx_freetype.h"
-#include "third_party/base/span.h"
+#include "base/span.h"
 
 /* Font pitch and family flags */
 #define FXFONT_FF_FIXEDPITCH (1 << 0)

@@ -30,7 +30,7 @@
 #include "core/fxge/cfx_pathdata.h"
 #include "core/fxge/dib/cfx_dibitmap.h"
 #include "core/fxge/fx_dib.h"
-#include "third_party/base/span.h"
+#include "base/span.h"
 
 namespace {
 

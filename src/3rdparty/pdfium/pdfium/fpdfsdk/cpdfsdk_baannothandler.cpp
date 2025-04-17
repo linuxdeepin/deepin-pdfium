@@ -20,7 +20,7 @@
 #include "fpdfsdk/cpdfsdk_pageview.h"
 #include "fpdfsdk/formfiller/cffl_formfiller.h"
 #include "public/fpdf_fwlevent.h"
-#include "third_party/base/stl_util.h"
+#include "base/stl_util.h"
 
 namespace {
 

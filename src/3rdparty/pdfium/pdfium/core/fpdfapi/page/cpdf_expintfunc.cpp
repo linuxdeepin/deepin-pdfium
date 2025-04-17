@@ -10,7 +10,7 @@
 #include "core/fpdfapi/parser/cpdf_dictionary.h"
 #include "core/fpdfapi/parser/cpdf_number.h"
 #include "core/fxcrt/fx_safe_types.h"
-#include "third_party/base/stl_util.h"
+#include "base/stl_util.h"
 
 CPDF_ExpIntFunc::CPDF_ExpIntFunc()
     : CPDF_Function(Type::kType2ExponentialInterpolation) {}

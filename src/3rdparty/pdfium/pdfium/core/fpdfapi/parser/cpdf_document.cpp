@@ -16,7 +16,7 @@
 #include "core/fpdfapi/parser/cpdf_reference.h"
 #include "core/fxcodec/jbig2/JBig2_DocumentContext.h"
 #include "core/fxcrt/fx_codepage.h"
-#include "third_party/base/stl_util.h"
+#include "base/stl_util.h"
 
 namespace {
 

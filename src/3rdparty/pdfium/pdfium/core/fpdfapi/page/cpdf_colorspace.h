@@ -18,7 +18,7 @@
 #include "core/fxcrt/observed_ptr.h"
 #include "core/fxcrt/retain_ptr.h"
 #include "core/fxcrt/unowned_ptr.h"
-#include "third_party/base/span.h"
+#include "base/span.h"
 
 #define PDFCS_DEVICEGRAY 1
 #define PDFCS_DEVICERGB 2

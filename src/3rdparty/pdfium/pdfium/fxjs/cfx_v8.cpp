@@ -8,7 +8,7 @@
 
 #include "core/fxcrt/fx_memory.h"
 #include "fxjs/fxv8.h"
-#include "third_party/base/allocator/partition_allocator/partition_alloc.h"
+#include "base/allocator/partition_allocator/partition_alloc.h"
 
 CFX_V8::CFX_V8(v8::Isolate* isolate) : m_pIsolate(isolate) {}
 

@@ -37,7 +37,7 @@
 #include "core/fxge/cfx_substfont.h"
 #include "core/fxge/cfx_unicodeencoding.h"
 #include "core/fxge/fx_font.h"
-#include "third_party/base/stl_util.h"
+#include "base/stl_util.h"
 
 namespace {
 

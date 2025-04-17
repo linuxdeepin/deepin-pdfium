@@ -31,7 +31,7 @@
 #include "fpdfsdk/pwl/cpwl_edit_impl.h"
 #include "fpdfsdk/pwl/cpwl_icon.h"
 #include "fpdfsdk/pwl/cpwl_wnd.h"
-#include "third_party/base/stl_util.h"
+#include "base/stl_util.h"
 
 namespace {
 

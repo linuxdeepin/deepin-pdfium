@@ -39,8 +39,13 @@ execute_process(
 )
 add_definitions(-DSYSTEMPAGESIZE=${SYSTEM_PAGE_SIZE})
 
+# 查找Qt版本
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core)
+message(">>> Found Qt version: ${QT_VERSION_MAJOR}")
+set(QT_DESIRED_VERSION ${QT_VERSION_MAJOR})
+
 # 查找Qt6依赖包
-find_package(Qt6 COMPONENTS Core Gui REQUIRED)
+find_package(Qt${QT_DESIRED_VERSION} REQUIRED COMPONENTS Core Gui)
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(DEPS REQUIRED
     chardet
@@ -51,6 +56,9 @@ pkg_check_modules(DEPS REQUIRED
 
 # PDFium 第三方库
 add_subdirectory(src/3rdparty/pdfium)
+
+# 定义导出宏
+# add_definitions(-DBUILD_DEEPDF_LIB)
 
 # 主库目标
 add_library(${PROJECT_NAME} SHARED
@@ -81,8 +89,8 @@ target_include_directories(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME}
     PRIVATE
         pdfium
-        Qt6::Core
-        Qt6::Gui
+        Qt${QT_DESIRED_VERSION}::Core
+        Qt${QT_DESIRED_VERSION}::Gui
         ${DEPS_LIBRARIES}
         z
         jpeg

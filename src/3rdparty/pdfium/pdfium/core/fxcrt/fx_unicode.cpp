@@ -6,7 +6,7 @@
 
 #include "core/fxcrt/fx_unicode.h"
 
-#include "third_party/base/stl_util.h"
+#include "base/stl_util.h"
 
 namespace {
 

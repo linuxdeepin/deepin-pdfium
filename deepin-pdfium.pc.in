@@ -6,6 +6,5 @@ includedir=${prefix}/@CMAKE_INSTALL_INCLUDEDIR@/deepin-pdfium
 Name: @PROJECT_NAME@
 Description: @PROJECT_DESCRIPTION@
 Version: @PROJECT_VERSION@
-Requires: Qt6Core Qt6Gui
 Libs: -L${libdir} -ldeepin-pdfium
-Cflags: -I${includedir} 
+Cflags: -I${includedir}

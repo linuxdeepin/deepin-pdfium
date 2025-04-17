@@ -15,7 +15,7 @@
 #include "core/fpdfapi/parser/cpdf_array.h"
 #include "core/fpdfapi/parser/cpdf_dictionary.h"
 #include "core/fpdfapi/parser/cpdf_object.h"
-#include "third_party/base/stl_util.h"
+#include "base/stl_util.h"
 
 CPDF_Page::CPDF_Page(CPDF_Document* pDocument, CPDF_Dictionary* pPageDict)
     : CPDF_PageObjectHolder(pDocument, pPageDict, nullptr, nullptr),

@@ -13,7 +13,7 @@
 #include "fxjs/cjs_object.h"
 #include "fxjs/fxv8.h"
 #include "fxjs/xfa/cfxjse_runtimedata.h"
-#include "third_party/base/stl_util.h"
+#include "base/stl_util.h"
 #include "v8/include/v8-util.h"
 
 class CFXJS_PerObjectData;

@@ -8,7 +8,7 @@
 
 #include "core/fxcrt/fx_memory.h"
 #include "core/fxcrt/fx_safe_types.h"
-#include "third_party/base/allocator/partition_allocator/partition_alloc.h"
+#include "base/allocator/partition_allocator/partition_alloc.h"
 
 namespace fxcrt {
 

@@ -8,7 +8,7 @@
 
 #include <map>
 
-#include "third_party/base/no_destructor.h"
+#include "base/no_destructor.h"
 
 namespace {
 

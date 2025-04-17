@@ -12,7 +12,7 @@
 #include "core/fpdfapi/parser/cpdf_dictionary.h"
 #include "core/fpdfapi/parser/cpdf_stream.h"
 #include "core/fpdfapi/parser/cpdf_stream_acc.h"
-#include "third_party/base/span.h"
+#include "base/span.h"
 
 namespace {
 

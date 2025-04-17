@@ -16,7 +16,7 @@
 #include "core/fxcodec/jbig2/JBig2_Page.h"
 #include "core/fxcodec/jbig2/JBig2_Segment.h"
 #include "core/fxcrt/fx_safe_types.h"
-#include "third_party/base/span.h"
+#include "base/span.h"
 
 class CJBig2_ArithDecoder;
 class CJBig2_GRDProc;

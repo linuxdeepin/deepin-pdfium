@@ -14,7 +14,7 @@
 #include "core/fpdfapi/font/cpdf_cmapmanager.h"
 #include "core/fxcrt/retain_ptr.h"
 #include "core/fxge/cfx_fontmapper.h"
-#include "third_party/base/span.h"
+#include "base/span.h"
 
 class CFX_StockFontArray;
 

@@ -10,8 +10,8 @@
 
 #include "core/fxcrt/timerhandler_iface.h"
 #include "fxjs/cjs_app.h"
-#include "third_party/base/no_destructor.h"
-#include "third_party/base/stl_util.h"
+#include "base/no_destructor.h"
+#include "base/stl_util.h"
 
 namespace {
 

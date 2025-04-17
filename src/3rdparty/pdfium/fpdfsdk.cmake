@@ -112,8 +112,3 @@ target_sources(pdfium
         pdfium/fpdfsdk/fpdf_transformpage.cpp
         pdfium/fpdfsdk/fpdf_view.cpp
 )
-
-target_include_directories(pdfium
-    PRIVATE
-        pdfium/third_party/freetype/src/include
-) 

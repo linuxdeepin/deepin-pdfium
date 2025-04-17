@@ -10,7 +10,7 @@
 #include "core/fxcrt/fx_string.h"
 #include "core/fxcrt/fx_system.h"
 #include "core/fxcrt/retain_ptr.h"
-#include "third_party/base/compiler_specific.h"
+#include "base/compiler_specific.h"
 
 struct FX_FolderHandle;
 

@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: deepin <packages@deepin.com>
 Build-Depends: debhelper (>= 11),
  cmake,
- qt6-base-dev,
+ qt6-base-dev | qtbase5-dev,
  pkg-config,
  libjpeg-dev,
  libicu-dev,

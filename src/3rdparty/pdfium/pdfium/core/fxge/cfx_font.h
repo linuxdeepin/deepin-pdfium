@@ -16,7 +16,7 @@
 #include "core/fxcrt/fx_memory_wrappers.h"
 #include "core/fxge/cfx_face.h"
 #include "core/fxge/fx_freetype.h"
-#include "third_party/base/span.h"
+#include "base/span.h"
 
 #if defined(_SKIA_SUPPORT_) || defined(_SKIA_SUPPORT_PATHS_)
 #include "core/fxge/fx_font.h"

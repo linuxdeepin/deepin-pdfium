@@ -14,7 +14,7 @@
 #include "core/fxcrt/unowned_ptr.h"
 #include "core/fxge/dib/cfx_imagerenderer.h"
 #include "core/fxge/fx_dib.h"
-#include "third_party/base/optional.h"
+#include "base/optional.h"
 
 class CFX_DIBitmap;
 class CFX_DIBBase;

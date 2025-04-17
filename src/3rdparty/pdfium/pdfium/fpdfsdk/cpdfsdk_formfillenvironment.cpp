@@ -24,7 +24,7 @@
 #include "fpdfsdk/formfiller/cffl_formfiller.h"
 #include "fpdfsdk/formfiller/cffl_interactiveformfiller.h"
 #include "fxjs/ijs_runtime.h"
-#include "third_party/base/stl_util.h"
+#include "base/stl_util.h"
 
 FPDF_WIDESTRING AsFPDFWideString(ByteString* bsUTF16LE) {
   // Force a private version of the string, since we're about to hand it off
@@ -312,11 +312,13 @@ void CPDFSDK_FormFillEnvironment::SubmitForm(pdfium::span<uint8_t> form_data,
                               AsFPDFWideString(&bsUrl));
 }
 
+#ifdef PDF_ENABLE_JS
 IJS_Runtime* CPDFSDK_FormFillEnvironment::GetIJSRuntime() {
   if (!m_pIJSRuntime)
     m_pIJSRuntime = IJS_Runtime::Create(this);
   return m_pIJSRuntime.get();
 }
+#endif
 
 CPDFSDK_AnnotHandlerMgr* CPDFSDK_FormFillEnvironment::GetAnnotHandlerMgr() {
   return m_pAnnotHandlerMgr.get();

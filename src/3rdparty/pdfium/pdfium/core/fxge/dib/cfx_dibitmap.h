@@ -13,7 +13,7 @@
 #include "core/fxcrt/retain_ptr.h"
 #include "core/fxge/dib/cfx_dibbase.h"
 #include "core/fxge/fx_dib.h"
-#include "third_party/base/optional.h"
+#include "base/optional.h"
 
 class CFX_DIBitmap : public CFX_DIBBase {
  public:

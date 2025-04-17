@@ -30,3 +30,7 @@ debian/*.log
 #else
 *.autosave
 *.o
+
+
+build/
+.vscode/

@@ -10,7 +10,7 @@
 #include <memory>
 
 #include "core/fxcodec/fx_codec_def.h"
-#include "third_party/base/span.h"
+#include "base/span.h"
 
 class CJBig2_Context;
 class CJBig2_Image;

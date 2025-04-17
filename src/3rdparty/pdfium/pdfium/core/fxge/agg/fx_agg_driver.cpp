@@ -17,8 +17,8 @@
 #include "core/fxge/dib/cfx_dibitmap.h"
 #include "core/fxge/dib/cfx_imagerenderer.h"
 #include "core/fxge/dib/cfx_imagestretcher.h"
-#include "third_party/base/span.h"
-#include "third_party/base/stl_util.h"
+#include "base/span.h"
+#include "base/stl_util.h"
 
 // Ignore fallthrough warnings in agg23 headers.
 #if defined(__clang__)

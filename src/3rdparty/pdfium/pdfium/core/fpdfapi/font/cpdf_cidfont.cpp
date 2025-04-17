@@ -24,8 +24,8 @@
 #include "core/fxcrt/fx_memory.h"
 #include "core/fxcrt/fx_safe_types.h"
 #include "core/fxge/fx_font.h"
-#include "third_party/base/span.h"
-#include "third_party/base/stl_util.h"
+#include "base/span.h"
+#include "base/stl_util.h"
 
 namespace {
 

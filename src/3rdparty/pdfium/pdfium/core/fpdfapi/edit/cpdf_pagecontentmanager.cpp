@@ -15,7 +15,7 @@
 #include "core/fpdfapi/parser/cpdf_document.h"
 #include "core/fpdfapi/parser/cpdf_reference.h"
 #include "core/fpdfapi/parser/cpdf_stream.h"
-#include "third_party/base/containers/adapters.h"
+#include "base/containers/adapters.h"
 
 CPDF_PageContentManager::CPDF_PageContentManager(
     const CPDF_PageObjectHolder* obj_holder)

@@ -10,7 +10,7 @@
 #include "core/fxcrt/fx_string.h"
 #include "core/fxcrt/fx_system.h"
 #include "fxjs/ijs_runtime.h"
-#include "third_party/base/optional.h"
+#include "base/optional.h"
 
 class CPDF_Bookmark;
 class CPDF_FormField;

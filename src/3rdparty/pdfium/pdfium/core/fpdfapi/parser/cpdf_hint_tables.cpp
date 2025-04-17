@@ -19,8 +19,8 @@
 #include "core/fpdfapi/parser/cpdf_syntax_parser.h"
 #include "core/fxcrt/cfx_bitstream.h"
 #include "core/fxcrt/fx_safe_types.h"
-#include "third_party/base/numerics/safe_conversions.h"
-#include "third_party/base/span.h"
+#include "base/numerics/safe_conversions.h"
+#include "base/span.h"
 
 namespace {
 
