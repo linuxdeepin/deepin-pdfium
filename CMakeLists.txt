@@ -39,9 +39,9 @@ execute_process(
 )
 add_definitions(-DSYSTEMPAGESIZE=${SYSTEM_PAGE_SIZE})
 
-# 查找Qt5和Qt6
-find_package(Qt5 COMPONENTS Core Gui QUIET)
+# Qt6必须放前面，否则高版本cmake存在问题
 find_package(Qt6 COMPONENTS Core Gui QUIET)
+find_package(Qt5 COMPONENTS Core Gui QUIET)
 
 if(NOT Qt5_FOUND AND NOT Qt6_FOUND)
     message(FATAL_ERROR "Neither Qt5 nor Qt6 found - please install at least one")

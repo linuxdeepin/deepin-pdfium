@@ -1,3 +1,9 @@
+deepin-pdfium (1.5.2) unstable; urgency=medium
+
+  * both build Qt6 and Qt5
+
+ -- re2zero <yangwu@uniontech.com>  Tue, 22 Apr 2025 19:42:57 +0800
+
 deepin-pdfium (1.5.1) unstable; urgency=medium
 
   * adapt to Qt6
