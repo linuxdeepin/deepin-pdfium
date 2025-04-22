@@ -9,7 +9,7 @@ set_target_properties(${TARGET_NAME} PROPERTIES
 target_include_directories(${TARGET_NAME}
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/deepin-pdfium>
+        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/${TARGET_NAME}>
     PRIVATE
         ${DEPS_INCLUDE_DIRS}
 )
@@ -28,6 +28,15 @@ target_link_libraries(${TARGET_NAME}
 # 安装Qt6版本
 install(TARGETS ${TARGET_NAME}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+)
+
+# 安装头文件
+install(FILES 
+    include/dpdfglobal.h
+    include/dpdfdoc.h
+    include/dpdfpage.h 
+    include/dpdfannot.h
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${TARGET_NAME}
 )
 
 # 生成Qt6版本的pkg-config文件

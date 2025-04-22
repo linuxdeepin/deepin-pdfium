@@ -95,11 +95,3 @@ if(Qt6_FOUND)
     set(TARGET_NAME ${PROJECT_NAME})
     include(target.cmake)
 endif()
-
-install(FILES 
-    include/dpdfglobal.h
-    include/dpdfdoc.h
-    include/dpdfpage.h 
-    include/dpdfannot.h
-    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/deepin-pdfium
-)

@@ -23,11 +23,23 @@ Standards-Version: 4.3.0
 Package: libdeepin-pdfium
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: A libaray about PDF.
+Description: A libaray about PDF base on Qt6.
+ A library for parsing and editing and displaying PDF.
+
+Package: libdeepin-pdfium5
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: A libaray about PDF base on Qt5.
  A library for parsing and editing and displaying PDF.
 
 Package: libdeepin-pdfium-dev
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, libdeepin-pdfium
-Description: A libaray about PDF dev
+Description: A libaray about PDF dev base on Qt6.
+ A libaray that provides for parsing and editing and displaying PDF interface dev.
+
+Package: libdeepin-pdfium5-dev
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libdeepin-pdfium5
+Description: A libaray about PDF dev base on Qt5.
  A libaray that provides for parsing and editing and displaying PDF interface dev.
