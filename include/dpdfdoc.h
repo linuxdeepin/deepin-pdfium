@@ -141,6 +141,18 @@ private:
      */
     bool isLinearized(const QString &fileName);
 
+    /**
+     * @brief Save local file
+     * @return
+     */
+    bool saveLocalFile();
+
+    /**
+     * @brief Save remote file
+     * @return
+     */
+    bool saveRemoteFile();
+
 private:
     Q_DISABLE_COPY(DPdfDoc)
     QScopedPointer<DPdfDocPrivate> d_ptr;
