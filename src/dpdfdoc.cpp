@@ -21,6 +21,9 @@
 #include <QTemporaryDir>
 #include <QUuid>
 #include <unistd.h>
+#include <QStorageInfo>
+#include <QStandardPaths>
+#include <QDir>
 
 /**
  * @brief The PDFIumLoader class for FPDF_FILEACCESS
@@ -54,6 +57,22 @@ static FPDF_BOOL IsDataAvail(FX_FILEAVAIL * /*pThis*/, size_t /*offset*/, size_t
     return true;
 }
 
+/**
+ * @brief Check if the file is an Remote file
+ * @param filePath file path
+ * @return returns true if it's an Remote file, false otherwise
+ */
+static bool isRemoteFile(const QString &filePath)
+{
+    // Currently only SMB files are supported for remote file handling
+    QFileInfo fileInfo(filePath);
+    QStorageInfo storage = QStorageInfo(fileInfo.absolutePath());
+    
+    QString fsType = storage.fileSystemType().toLower();
+    
+    return (fsType == "cifs" || fsType == "smb" || fsType == "smbfs");
+}
+
 DPdfDoc::Status parseError(int error)
 {
     DPdfDoc::Status err_code = DPdfDoc::SUCCESS;
@@ -83,7 +102,6 @@ class DPdfDocPrivate
     friend class DPdfDoc;
 public:
     DPdfDocPrivate();
-
     ~DPdfDocPrivate();
 
 public:
@@ -91,13 +109,11 @@ public:
 
 private:
     DPdfDocHandler *m_docHandler;
-
     QVector<DPdfPage *> m_pages;
-
-    QString m_filePath;
-
+    QString m_filePath;        // Original file path
+    QString m_tempFilePath;    // Temporary file path
+    bool m_isRemoteFile;          // Whether it is a Remote file
     int m_pageCount = 0;
-
     DPdfDoc::Status m_status;
 };
 
@@ -106,6 +122,7 @@ DPdfDocPrivate::DPdfDocPrivate()
     m_docHandler = nullptr;
     m_pageCount = 0;
     m_status = DPdfDoc::NOT_LOADED;
+    m_isRemoteFile = false;
 }
 
 DPdfDocPrivate::~DPdfDocPrivate()
@@ -116,24 +133,68 @@ DPdfDocPrivate::~DPdfDocPrivate()
 
     if (nullptr != m_docHandler)
         FPDF_CloseDocument(reinterpret_cast<FPDF_DOCUMENT>(m_docHandler));
+    
+    if (!m_tempFilePath.isEmpty() && QFile::exists(m_tempFilePath)) {
+        QFile::remove(m_tempFilePath);
+        qDebug() << "Temporary file deleted:" << m_tempFilePath;
+    }
 }
 
 DPdfDoc::Status DPdfDocPrivate::loadFile(const QString &filePath, const QString &password)
 {
     m_filePath = filePath;
-
-    m_pages.clear();
+    m_tempFilePath.clear();
+    m_isRemoteFile = false;
+    m_pages.clear();    
 
     if (!QFile::exists(m_filePath)) {
         m_status = DPdfDoc::FILE_NOT_FOUND_ERROR;
         return m_status;
     }
 
+    // Check if it is a Remote file
+    m_isRemoteFile = isRemoteFile(m_filePath);
+    
+    // Determine the file path to load
+    QString fileToLoad = m_filePath;
+    
+    if (m_isRemoteFile) {
+        qDebug() << "Detected Remote file, creating local copy:" << m_filePath;
+        
+        // Create a remote file cache directory in the application cache directory
+        QString cacheDir = QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/remote_cache";
+        QDir cacheDirObj(cacheDir);
+        if (!cacheDirObj.exists()) {
+            cacheDirObj.mkpath(".");
+            qDebug() << "Created remote cache directory:" << cacheDir;
+        }
+
+        // Create a temporary file name using the original file name and a unique ID
+        QFileInfo fileInfo(m_filePath);
+        QString uniqueId = QUuid::createUuid().toString(QUuid::WithoutBraces);
+        m_tempFilePath = QString("%1/%2.%3").arg(cacheDir, fileInfo.completeBaseName(), uniqueId);
+
+        // If the original file has a suffix, keep the original suffix
+        if (!fileInfo.suffix().isEmpty()) {
+            m_tempFilePath += "." + fileInfo.suffix();
+        }
+        
+        // Copy the remote file to the local temporary file
+        if (!QFile::copy(m_filePath, m_tempFilePath)) {
+            qWarning() << "Failed to create local copy of Remote file:" << m_filePath;
+            m_status = DPdfDoc::FILE_ERROR;
+            return m_status;
+        }
+        
+        qDebug() << "Local temporary file created:" << m_tempFilePath;
+        fileToLoad = m_tempFilePath;
+    }
+
     DPdfMutexLocker locker("DPdfDocPrivate::loadFile");
 
-    qDebug() << "deepin-pdfium正在加载PDF文档... 文档名称: " << filePath;
-    void *ptr = FPDF_LoadDocument(m_filePath.toUtf8().constData(),
-                                  password.toUtf8().constData());
+    qDebug() << "deepin-pdfium正在加载PDF文档... 文档名称:" << fileToLoad;
+    void *ptr = FPDF_LoadDocument(fileToLoad.toUtf8().constData(),
+                                 password.toUtf8().constData());
 
     m_docHandler = static_cast<DPdfDocHandler *>(ptr);
 
@@ -237,7 +298,12 @@ int writeFile(struct FPDF_FILEWRITE_* pThis, const void *pData, unsigned long si
     return 0 != saveWriter.write(static_cast<char *>(const_cast<void *>(pData)), static_cast<qint64>(size));
 }
 
-bool DPdfDoc::save()
+bool DPdfDoc::saveRemoteFile()
+{
+    return saveAs(d_func()->m_filePath);
+}
+
+bool DPdfDoc::saveLocalFile()
 {
     FPDF_FILEWRITE write;
 
@@ -246,41 +312,51 @@ bool DPdfDoc::save()
     QTemporaryDir tempDir;
 
     QString tempFilePath = tempDir.path() + "/" + QUuid::createUuid().toString();
-
+    
     saveWriter.setFileName(tempFilePath);
 
     if (!saveWriter.open(QIODevice::WriteOnly))
         return false;
-
+    
     DPdfMutexLocker locker("DPdfDoc::save");
     bool result = FPDF_SaveAsCopy(reinterpret_cast<FPDF_DOCUMENT>(d_func()->m_docHandler), &write, FPDF_NO_INCREMENTAL);
     locker.unlock();
-
+    
     saveWriter.close();
-
+    
     QFile tempFile(tempFilePath);
 
     if (!tempFile.open(QIODevice::ReadOnly))
         return false;
-
+    
     QByteArray array = tempFile.readAll();
 
     tempFile.close();
-
+    
     QFile file(d_func()->m_filePath);
-
+    
     file.remove();          //不remove会出现第二次导出丢失数据问题 (保存动作完成之后，如果当前文档是当初打开那个，下一次导出会出错)
-
+    
     if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate))
         return false;
-
+    
     if (array.size() != file.write(array))
         result = false;
-
+    
     file.flush();//函数将用户缓存中的内容写入内核缓冲区
     fsync(file.handle());//将内核缓冲写入文件(磁盘)
     file.close();
     return result;
+}
+
+bool DPdfDoc::save()
+{
+
+    if (d_func()->m_isRemoteFile) {
+        return saveRemoteFile();
+    } else {
+        return saveLocalFile();
+    }
 }
 
 bool DPdfDoc::saveAs(const QString &filePath)
