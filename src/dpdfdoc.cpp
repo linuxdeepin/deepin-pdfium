@@ -24,6 +24,7 @@
 #include <QStorageInfo>
 #include <QStandardPaths>
 #include <QDir>
+#include <QDebug>
 
 /**
  * @brief The PDFIumLoader class for FPDF_FILEACCESS
@@ -70,7 +71,9 @@ static bool isRemoteFile(const QString &filePath)
     
     QString fsType = storage.fileSystemType().toLower();
     
-    return (fsType == "cifs" || fsType == "smb" || fsType == "smbfs");
+    bool isRemote = (fsType == "cifs" || fsType == "smb" || fsType == "smbfs");
+    qDebug() << filePath << "isRemote:" << isRemote;
+    return isRemote;
 }
 
 DPdfDoc::Status parseError(int error)
@@ -94,6 +97,7 @@ DPdfDoc::Status parseError(int error)
         err_code = DPdfDoc::HANDLER_ERROR;
         break;
     }
+    qDebug() << "Parsed error code:" << error << "to status:" << err_code;
     return err_code;
 }
 
@@ -128,11 +132,14 @@ DPdfDocPrivate::DPdfDocPrivate()
 DPdfDocPrivate::~DPdfDocPrivate()
 {
     DPdfMutexLocker locker("DPdfDocPrivate::~DPdfDocPrivate()");
+    qDebug() << "Cleaning up DPdfDocPrivate resources";
 
     qDeleteAll(m_pages);
 
-    if (nullptr != m_docHandler)
+    if (nullptr != m_docHandler) {
+        qDebug() << "Closing PDF document handler";
         FPDF_CloseDocument(reinterpret_cast<FPDF_DOCUMENT>(m_docHandler));
+    }
     
     if (!m_tempFilePath.isEmpty() && QFile::exists(m_tempFilePath)) {
         QFile::remove(m_tempFilePath);
@@ -142,12 +149,14 @@ DPdfDocPrivate::~DPdfDocPrivate()
 
 DPdfDoc::Status DPdfDocPrivate::loadFile(const QString &filePath, const QString &password)
 {
+    qDebug() << "Loading PDF file:" << filePath;
     m_filePath = filePath;
     m_tempFilePath.clear();
     m_isRemoteFile = false;
     m_pages.clear();    
 
     if (!QFile::exists(m_filePath)) {
+        qWarning() << "File not found:" << m_filePath;
         m_status = DPdfDoc::FILE_NOT_FOUND_ERROR;
         return m_status;
     }
@@ -203,6 +212,7 @@ DPdfDoc::Status DPdfDocPrivate::loadFile(const QString &filePath, const QString 
 
     if (m_docHandler) {
         m_pageCount = FPDF_GetPageCount(reinterpret_cast<FPDF_DOCUMENT>(m_docHandler));
+        qDebug() << "Document loaded successfully with" << m_pageCount << "pages";
         m_pages.fill(nullptr, m_pageCount);
     }
 
@@ -223,23 +233,30 @@ DPdfDoc::~DPdfDoc()
 
 bool DPdfDoc::isValid() const
 {
-    return d_func()->m_docHandler != nullptr;
+    bool valid = d_func()->m_docHandler != nullptr;
+    qDebug() << "Checking document validity:" << valid;
+    return valid;
 }
 
 bool DPdfDoc::isEncrypted() const
 {
-    if (!isValid())
+    if (!isValid()) {
+        qDebug() << "Document is not valid, cannot check encryption";
         return false;
+    }
 
     DPdfMutexLocker locker("DPdfDoc::isEncrypted()");
-
-    return FPDF_GetDocPermissions(reinterpret_cast<FPDF_DOCUMENT>(d_func()->m_docHandler)) != 0xFFFFFFFF;
+    bool encrypted = FPDF_GetDocPermissions(reinterpret_cast<FPDF_DOCUMENT>(d_func()->m_docHandler)) != 0xFFFFFFFF;
+    qDebug() << "Document encryption status:" << encrypted;
+    return encrypted;
 }
 
 DPdfDoc::Status DPdfDoc::tryLoadFile(const QString &filename, const QString &password)
 {
+    qDebug() << "Attempting to load file:" << filename;
     Status status = NOT_LOADED;
     if (!QFile::exists(filename)) {
+        qWarning() << "File not found:" << filename;
         status = FILE_NOT_FOUND_ERROR;
         return status;
     }
@@ -251,8 +268,10 @@ DPdfDoc::Status DPdfDoc::tryLoadFile(const QString &filename, const QString &pas
 
     DPdfDocHandler *docHandler = static_cast<DPdfDocHandler *>(ptr);
     status = docHandler ? SUCCESS : parseError(static_cast<int>(FPDF_GetLastError()));
+    qDebug() << "File load attempt status:" << status;
 
     if (docHandler) {
+        qDebug() << "Closing test document handler";
         FPDF_CloseDocument(reinterpret_cast<FPDF_DOCUMENT>(docHandler));
     }
 
@@ -261,6 +280,7 @@ DPdfDoc::Status DPdfDoc::tryLoadFile(const QString &filename, const QString &pas
 
 bool DPdfDoc::isLinearized(const QString &fileName)
 {
+    qDebug() << "Checking if file is linearized:" << fileName;
     QFile file(fileName);
     if (!file.open(QFile::ReadOnly)) {
         qInfo() << "file open failed when isLinearized" << fileName;
@@ -287,7 +307,9 @@ bool DPdfDoc::isLinearized(const QString &fileName)
     FPDF_AVAIL m_PdfAvail;
     m_PdfAvail = FPDFAvail_Create(&m_fileAvail, &m_fileAccess);
 
-    return FPDFAvail_IsLinearized(m_PdfAvail) > 0;
+    bool linearized = FPDFAvail_IsLinearized(m_PdfAvail) > 0;
+    qDebug() << "File linearization status:" << linearized;
+    return linearized;
 }
 
 static QFile saveWriter;
@@ -300,11 +322,13 @@ int writeFile(struct FPDF_FILEWRITE_* pThis, const void *pData, unsigned long si
 
 bool DPdfDoc::saveRemoteFile()
 {
+    qDebug() << "Saving remote file:" << d_func()->m_filePath;
     return saveAs(d_func()->m_filePath);
 }
 
 bool DPdfDoc::saveLocalFile()
 {
+    qDebug() << "Saving local file:" << d_func()->m_filePath;
     FPDF_FILEWRITE write;
 
     write.WriteBlock = writeFile;
@@ -314,9 +338,12 @@ bool DPdfDoc::saveLocalFile()
     QString tempFilePath = tempDir.path() + "/" + QUuid::createUuid().toString();
     
     saveWriter.setFileName(tempFilePath);
+    qDebug() << "Using temporary file for save:" << tempFilePath;
 
-    if (!saveWriter.open(QIODevice::WriteOnly))
+    if (!saveWriter.open(QIODevice::WriteOnly)) {
+        qWarning() << "Failed to open temporary file for writing";
         return false;
+    }
     
     DPdfMutexLocker locker("DPdfDoc::save");
     bool result = FPDF_SaveAsCopy(reinterpret_cast<FPDF_DOCUMENT>(d_func()->m_docHandler), &write, FPDF_NO_INCREMENTAL);
@@ -325,9 +352,10 @@ bool DPdfDoc::saveLocalFile()
     saveWriter.close();
     
     QFile tempFile(tempFilePath);
-
-    if (!tempFile.open(QIODevice::ReadOnly))
+    if (!tempFile.open(QIODevice::ReadOnly)) {
+        qWarning() << "Failed to open temporary file for reading";
         return false;
+    }
     
     QByteArray array = tempFile.readAll();
 
@@ -337,21 +365,27 @@ bool DPdfDoc::saveLocalFile()
     
     file.remove();          //不remove会出现第二次导出丢失数据问题 (保存动作完成之后，如果当前文档是当初打开那个，下一次导出会出错)
     
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate))
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
+        qWarning() << "Failed to open target file for writing";
         return false;
+    }
     
-    if (array.size() != file.write(array))
+    if (array.size() != file.write(array)) {
+        qWarning() << "Failed to write all data to target file";
         result = false;
+    }
     
     file.flush();//函数将用户缓存中的内容写入内核缓冲区
     fsync(file.handle());//将内核缓冲写入文件(磁盘)
     file.close();
+    
+    qDebug() << "Local file save completed with status:" << result;
     return result;
 }
 
 bool DPdfDoc::save()
 {
-
+    qDebug() << "Saving document, isRemoteFile:" << d_func()->m_isRemoteFile;
     if (d_func()->m_isRemoteFile) {
         return saveRemoteFile();
     } else {
@@ -361,21 +395,24 @@ bool DPdfDoc::save()
 
 bool DPdfDoc::saveAs(const QString &filePath)
 {
+    qDebug() << "Saving document as:" << filePath;
     FPDF_FILEWRITE write;
 
     write.WriteBlock = writeFile;
 
     saveWriter.setFileName(filePath);
 
-    if (!saveWriter.open(QIODevice::ReadWrite))
+    if (!saveWriter.open(QIODevice::ReadWrite)) {
+        qWarning() << "Failed to open file for saving:" << filePath;
         return false;
+    }
 
     DPdfMutexLocker locker("DPdfDoc::saveAs");
     bool result = FPDF_SaveAsCopy(reinterpret_cast<FPDF_DOCUMENT>(d_func()->m_docHandler), &write, FPDF_NO_INCREMENTAL);
     locker.unlock();
 
     saveWriter.close();
-
+    qDebug() << "Save as completed with status:" << result;
     return result;
 }
 
@@ -396,10 +433,14 @@ DPdfDoc::Status DPdfDoc::status() const
 
 DPdfPage *DPdfDoc::page(int i, qreal xRes, qreal yRes)
 {
-    if (i < 0 || i >= d_func()->m_pageCount)
+    qDebug() << "Getting page" << i << "with resolution" << xRes << "x" << yRes;
+    if (i < 0 || i >= d_func()->m_pageCount) {
+        qWarning() << "Invalid page index:" << i;
         return nullptr;
+    }
 
     if (!d_func()->m_pages[i]) {
+        qDebug() << "Creating new page object for index:" << i;
         d_func()->m_pages[i] = new DPdfPage(d_func()->m_docHandler, i, xRes, yRes);
     }
 
@@ -436,20 +477,24 @@ void collectBookmarks(DPdfDoc::Outline &outline, const CPDF_BookmarkTree &tree, 
 
 DPdfDoc::Outline DPdfDoc::outline(qreal xRes, qreal yRes)
 {
+    qDebug() << "Getting document outline with resolution" << xRes << "x" << yRes;
     DPdfMutexLocker locker("DPdfDoc::outline");
 
     Outline outline;
     CPDF_BookmarkTree tree(reinterpret_cast<CPDF_Document *>(d_func()->m_docHandler));
     CPDF_Bookmark cBookmark;
     const CPDF_Bookmark &firstRootChild = tree.GetFirstChild(&cBookmark);
-    if (firstRootChild.GetDict() != nullptr)
+    if (firstRootChild.GetDict() != nullptr) {
+        qDebug() << "Collecting bookmarks from document";
         collectBookmarks(outline, tree, firstRootChild, xRes, yRes);
+    }
 
     return outline;
 }
 
 DPdfDoc::Properies DPdfDoc::proeries()
 {
+    qDebug() << "Getting document properties";
     DPdfMutexLocker locker("DPdfDoc::proeries");
 
     Properies properies;
@@ -468,6 +513,7 @@ DPdfDoc::Properies DPdfDoc::proeries()
 
     const CPDF_Dictionary *pInfo = pDoc->GetInfo();
     if (pInfo) {
+        qDebug() << "Reading document metadata from info dictionary";
         const WideString &KeyWords = pInfo->GetUnicodeTextFor("KeyWords");
         properies.insert("KeyWords", QString::fromWCharArray(KeyWords.c_str()));
 
@@ -492,11 +538,16 @@ DPdfDoc::Properies DPdfDoc::proeries()
 
 QString DPdfDoc::label(int index) const
 {
+    qDebug() << "Getting page label for index:" << index;
     DPdfMutexLocker locker("DPdfDoc::label index = " + QString::number(index));
 
     CPDF_PageLabel label(reinterpret_cast<CPDF_Document *>(d_func()->m_docHandler));
     const Optional<WideString> &str = label.GetLabel(index);
-    if (str.has_value())
-        return QString::fromWCharArray(str.value().c_str(), static_cast<int>(str.value().GetLength()));
+    if (str.has_value()) {
+        QString result = QString::fromWCharArray(str.value().c_str(), static_cast<int>(str.value().GetLength()));
+        qDebug() << "Found page label:" << result;
+        return result;
+    }
+    qDebug() << "No page label found for index:" << index;
     return QString();
 }

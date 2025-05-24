@@ -16,35 +16,48 @@ const static DPdfGlobal instance = DPdfGlobal();
 
 void DPdfGlobal::init()
 {
+    qDebug() << "Initializing PDF library";
     if (!initialized) {
         FPDF_InitLibrary();
         initialized = true;
+        qDebug() << "PDF library initialized successfully";
+    } else {
+        qDebug() << "PDF library already initialized";
     }
 }
 
 void DPdfGlobal::destory()
 {
+    qDebug() << "Destroying PDF library";
     if (initialized) {
         FPDF_DestroyLibrary();
         initialized = false;
+        qDebug() << "PDF library destroyed successfully";
+    } else {
+        qDebug() << "PDF library was not initialized";
     }
 }
 
 DPdfGlobal::DPdfGlobal()
 {
+    qDebug() << "Creating DPdfGlobal instance";
     init();
 }
 
 DPdfGlobal::~DPdfGlobal()
 {
+    qDebug() << "Destroying DPdfGlobal instance";
     destory();
 }
 
 QString DPdfGlobal::textCodeType(const char *text)
 {
+    qDebug() << "Detecting text encoding";
     DetectObj *obj = detect_obj_init();
     detect(text, &obj);
     const QString &encodeind = QString(obj->encoding).toLower();
+    qDebug() << "Detected encoding:" << encodeind;
+    
     detect_obj_free(&obj);
     return encodeind;
 }

@@ -5,6 +5,7 @@
 #include "dpdfdoc.h"
 #include "dpdfpage.h"
 #include "dpdfannot.h"
+#include <QDebug>
 
 #include "public/fpdfview.h"
 #include "public/fpdf_text.h"
@@ -134,22 +135,30 @@ DPdfPagePrivate::DPdfPagePrivate(DPdfDocHandler *handler, int index, qreal xRes,
     m_doc(reinterpret_cast<FPDF_DOCUMENT>(handler)), m_index(index), m_xRes(xRes), m_yRes(yRes)
 {
     DPdfMutexLocker locker("DPdfPagePrivate::DPdfPagePrivate index = " + QString::number(index));
+    qDebug() << "Creating page private object for index:" << index << "with resolution:" << xRes << "x" << yRes;
 
     //宽高会受自身旋转值影响 单位:point 1/72inch 高分屏上要乘以系数
     FPDF_GetPageSizeByIndex(m_doc, index, &m_width_pt, &m_height_pt);
+    qDebug() << "Page size:" << m_width_pt << "x" << m_height_pt << "points";
 
     FPDF_PAGE page = FPDF_LoadNoParsePage(m_doc, m_index);
     m_isValid = (page != nullptr);
+    qDebug() << "Page validity:" << m_isValid;
     FPDF_ClosePage(page);
 }
 
 DPdfPagePrivate::~DPdfPagePrivate()
 {
-    if (m_textPage)
+    qDebug() << "Destroying page private object for index:" << m_index;
+    if (m_textPage) {
+        qDebug() << "Closing text page";
         FPDFText_ClosePage(m_textPage);
+    }
 
-    if (m_page)
+    if (m_page) {
+        qDebug() << "Closing PDF page";
         FPDF_ClosePage(m_page);
+    }
 
     qDeleteAll(m_dAnnots);
 }
@@ -168,7 +177,9 @@ void DPdfPagePrivate::loadPage()
 {
     if (nullptr == m_page) {
         DPdfMutexLocker locker("DPdfPagePrivate::loadPage() index = " + QString::number(m_index));//即使其他文档的page在加载时，多线程调用此函数也会崩溃，非常线程不安全,此处需要加锁
+        qDebug() << "Loading page:" << m_index;
         m_page = FPDF_LoadPage(m_doc, m_index);
+        qDebug() << "Page loaded:" << (m_page != nullptr);
     }
 }
 
@@ -178,7 +189,9 @@ void DPdfPagePrivate::loadTextPage()
 
     if (nullptr == m_textPage) {
         DPdfMutexLocker locker("DPdfPagePrivate::loadTextPage() index = " + QString::number(m_index));
+        qDebug() << "Loading text page:" << m_index;
         m_textPage = FPDFText_LoadPage(m_page);
+        qDebug() << "Text page loaded:" << (m_textPage != nullptr);
     }
 }
 
@@ -204,23 +217,29 @@ int DPdfPagePrivate::oriRotation()
 bool DPdfPagePrivate::loadAnnots()
 {
     DPdfMutexLocker locker("DPdfPagePrivate::allAnnots");
+    qDebug() << "Loading annotations for page:" << m_index;
 
     //使用临时page，不完全加载,防止刚开始消耗时间过长
     FPDF_PAGE page = m_page;
 
-    if (page == nullptr)
+    if (page == nullptr) {
+        qDebug() << "Page loaded without parsing";
         page = FPDF_LoadNoParsePage(m_doc, m_index);      //不调用ParseContent，目前观察不会导致多线程崩溃
+    }
 
     if (nullptr == page) {
+        qWarning() << "Failed to load page for annotations";
         return false;
     }
 
     CPDF_Page *pPage = CPDFPageFromFPDFPage(page);
 
     int rotation = pPage->GetPageRotation();
+    qDebug() << "Page rotation:" << rotation;
 
     //获取当前注释
     int annotCount = FPDFPage_GetAnnotCount(page);
+    qDebug() << "Found" << annotCount << "annotations";
 
     for (int i = 0; i < annotCount; ++i) {
         FPDF_ANNOTATION annot = FPDFPage_GetAnnot(page, i);
@@ -426,8 +445,10 @@ bool DPdfPagePrivate::loadAnnots()
         FPDFPage_CloseAnnot(annot);
     }
 
-    if (m_page == nullptr)
+    if (m_page == nullptr) {
+        qDebug() << "Closing temporary page used for annotation loading";
         FPDF_ClosePage(page);
+    }
 
     m_isLoadAnnots = true;
 
@@ -436,6 +457,7 @@ bool DPdfPagePrivate::loadAnnots()
 
 bool DPdfPagePrivate::initAnnot(DPdfAnnot *dAnnot)
 {
+    qDebug() << "Initializing annotation";
     if (DPdfAnnot::ALink != dAnnot->type())
         return true;
 
@@ -581,16 +603,23 @@ int DPdfPage::index() const
 
 QImage DPdfPage::image(int width, int height, QRect slice)
 {
-    if (nullptr == d_func()->m_doc)
+    qDebug() << "Rendering page image:" << width << "x" << height << "slice:" << slice;
+    if (nullptr == d_func()->m_doc) {
+        qWarning() << "Document is null";
         return QImage();
+    }
 
-    if (!slice.isValid())
+    if (!slice.isValid()) {
+        qDebug() << "Using full page slice";
         slice = QRect(0, 0, width, height);
+    }
 
     QImage image(slice.width(), slice.height(), QImage::Format_ARGB32);
 
-    if (image.isNull())
+    if (image.isNull()) {
+        qWarning() << "Failed to create image buffer";
         return QImage();
+    }
 
     image.fill(0xFFFFFFFF);
 
@@ -598,22 +627,26 @@ QImage DPdfPage::image(int width, int height, QRect slice)
 
     FPDF_PAGE page = FPDF_LoadPage(d_func()->m_doc, d_func()->m_index);
 
-    if (nullptr == page)
+    if (nullptr == page) {
+        qWarning() << "Failed to load page for rendering";
         return QImage();
+    }
 
     FPDF_BITMAP bitmap = FPDFBitmap_CreateEx(image.width(), image.height(), FPDFBitmap_BGRA, image.scanLine(0), image.bytesPerLine());
 
     if (nullptr != bitmap) {
+        qDebug() << "Rendering page to bitmap";
         FPDF_RenderPageBitmap(bitmap, page, slice.x(), slice.y(), slice.width(), slice.height(), width, height, 0, FPDF_ANNOT);
 
         if (slice.width() == width && slice.height() == height) {
+            qDebug() << "Rendering form fields";
             FPDF_FORMFILLINFO info;
 
             info.version = 1;
 
             FPDF_FORMHANDLE firmHandle = FPDFDOC_InitFormFillEnvironment(d_func()->m_doc, &info);
 
-            FPDF_FFLDraw(firmHandle, bitmap, page, 0, 0,  width, height, 0, FPDF_ANNOT);
+            FPDF_FFLDraw(firmHandle, bitmap, page, 0, 0, width, height, 0, FPDF_ANNOT);
         }
 
         FPDFBitmap_Destroy(bitmap);
@@ -633,6 +666,7 @@ QImage DPdfPage::image(int width, int height, QRect slice)
 //        }
 //    }
 
+    qDebug() << "Page image rendered successfully";
     return image;
 }
 
@@ -760,6 +794,7 @@ bool DPdfPage::textRect(int index, QRectF &textrect)
 
 QString DPdfPage::text(const QRectF &rect)
 {
+    qDebug() << "Getting text from rectangle:" << rect;
     d_func()->loadTextPage();
 
     QRectF pointRect = d_func()->transPixelToPoint(rect);
@@ -775,22 +810,26 @@ QString DPdfPage::text(const QRectF &rect)
 
     auto text = reinterpret_cast<CPDF_TextPage *>(d_func()->m_textPage)->GetTextByRect(fxRect);
 
+    qDebug() << "Text retrieved successfully";
     return QString::fromWCharArray(text.c_str(), static_cast<int>(text.GetLength()));
 }
 
 QString DPdfPage::text(int index, int charCount)
 {
+    qDebug() << "Getting text from index:" << index << "count:" << charCount;
     d_func()->loadTextPage();
 
     DPdfMutexLocker locker("DPdfPage::text(int index, int charCount) index = " + QString::number(this->index()));
 
     auto text = reinterpret_cast<CPDF_TextPage *>(d_func()->m_textPage)->GetPageText(index, charCount);
 
+    qDebug() << "Text retrieved successfully";
     return QString::fromWCharArray(text.c_str(), static_cast<int>(text.GetLength()));
 }
 
 DPdfAnnot *DPdfPage::createTextAnnot(QPointF pos, QString text)
 {
+    qDebug() << "Creating text annotation at position:" << pos;
     d_func()->loadPage();
 
     QPointF pointPos = d_func()->transPixelToPoint(pos);
@@ -802,6 +841,7 @@ DPdfAnnot *DPdfPage::createTextAnnot(QPointF pos, QString text)
     FPDF_ANNOTATION annot = FPDFPage_CreateAnnot(d_func()->m_page, subType);
 
     if (!FPDFAnnot_SetStringValue(annot, "Contents", text.utf16())) {
+        qWarning() << "Failed to set annotation text";
         FPDFPage_CloseAnnot(annot);
         return nullptr;
     }
@@ -809,6 +849,7 @@ DPdfAnnot *DPdfPage::createTextAnnot(QPointF pos, QString text)
     FS_RECTF fs_rect = d_func()->transRect(d_func()->oriRotation(), QRectF(pointPos.x() - 10, pointPos.y() - 10, 20, 20));
 
     if (!FPDFAnnot_SetRect(annot, &fs_rect)) {
+        qWarning() << "Failed to set annotation rectangle";
         FPDFPage_CloseAnnot(annot);
         return nullptr;
     }
@@ -835,12 +876,15 @@ DPdfAnnot *DPdfPage::createTextAnnot(QPointF pos, QString text)
 
 bool DPdfPage::updateTextAnnot(DPdfAnnot *dAnnot, QString text, QPointF pos)
 {
+    qDebug() << "Updating text annotation";
     d_func()->loadPage();
 
     DPdfTextAnnot *textAnnot = static_cast<DPdfTextAnnot *>(dAnnot);
 
-    if (nullptr == textAnnot)
+    if (nullptr == textAnnot) {
+        qWarning() << "Text annotation is null";
         return false;
+    }
 
     int index = d_func()->allAnnots().indexOf(dAnnot);
 
@@ -849,6 +893,7 @@ bool DPdfPage::updateTextAnnot(DPdfAnnot *dAnnot, QString text, QPointF pos)
     FPDF_ANNOTATION annot = FPDFPage_GetAnnot(d_func()->m_page, index);
 
     if (!FPDFAnnot_SetStringValue(annot, "Contents", text.utf16())) {
+        qWarning() << "Failed to set annotation text";
         FPDFPage_CloseAnnot(annot);
         return false;
     }
@@ -862,6 +907,7 @@ bool DPdfPage::updateTextAnnot(DPdfAnnot *dAnnot, QString text, QPointF pos)
         FS_RECTF fs_rect = d_func()->transRect(d_func()->oriRotation(), QRectF(pointPos.x() - pointSize.width() / 2, pointPos.y() - pointSize.height() / 2, pointSize.width(), pointSize.height()));
 
         if (!FPDFAnnot_SetRect(annot, &fs_rect)) {
+            qWarning() << "Failed to set annotation rectangle";
             FPDFPage_CloseAnnot(annot);
             return false;
         }
@@ -875,11 +921,13 @@ bool DPdfPage::updateTextAnnot(DPdfAnnot *dAnnot, QString text, QPointF pos)
 
     emit annotUpdated(dAnnot);
 
+    qDebug() << "Text annotation updated successfully";
     return true;
 }
 
 DPdfAnnot *DPdfPage::createHightLightAnnot(const QList<QRectF> &rects, QString text, QColor color)
 {
+    qDebug() << "Creating highlight annotation:" << rects << text << color;
     d_func()->loadPage();
 
     FPDF_ANNOTATION_SUBTYPE subType = FPDF_ANNOT_HIGHLIGHT;
@@ -893,6 +941,7 @@ DPdfAnnot *DPdfPage::createHightLightAnnot(const QList<QRectF> &rects, QString t
                                                static_cast<unsigned int>(color.green()),
                                                static_cast<unsigned int>(color.blue()),
                                                static_cast<unsigned int>(color.alpha()))) {
+        qWarning() << "Failed to set annotation color";
         FPDFPage_CloseAnnot(annot);
         return nullptr;
     }
@@ -915,6 +964,7 @@ DPdfAnnot *DPdfPage::createHightLightAnnot(const QList<QRectF> &rects, QString t
     }
 
     if (!FPDFAnnot_SetStringValue(annot, "Contents", text.utf16())) {
+        qWarning() << "Failed to set annotation text";
         FPDFPage_CloseAnnot(annot);
         return nullptr;
     }
@@ -942,12 +992,15 @@ DPdfAnnot *DPdfPage::createHightLightAnnot(const QList<QRectF> &rects, QString t
 
 bool DPdfPage::updateHightLightAnnot(DPdfAnnot *dAnnot, QColor color, QString text)
 {
+    qDebug() << "Updating highlight annotation:" << color << text;
     d_func()->loadPage();
 
     DPdfHightLightAnnot *hightLightAnnot = static_cast<DPdfHightLightAnnot *>(dAnnot);
 
-    if (nullptr == hightLightAnnot)
+    if (nullptr == hightLightAnnot) {
+        qWarning() << "Highlight annotation is null";
         return false;
+    }
 
     int index = d_func()->allAnnots().indexOf(dAnnot);
 
@@ -961,6 +1014,7 @@ bool DPdfPage::updateHightLightAnnot(DPdfAnnot *dAnnot, QColor color, QString te
                                 static_cast<unsigned int>(color.green()),
                                 static_cast<unsigned int>(color.blue()),
                                 static_cast<unsigned int>(color.alpha()))) {
+            qWarning() << "Failed to set annotation color";
             FPDFPage_CloseAnnot(annot);
             return false;
         }
@@ -968,6 +1022,7 @@ bool DPdfPage::updateHightLightAnnot(DPdfAnnot *dAnnot, QColor color, QString te
     }
 
     if (!FPDFAnnot_SetStringValue(annot, "Contents", text.utf16())) {
+        qWarning() << "Failed to set annotation text";
         FPDFPage_CloseAnnot(annot);
         return false;
     }
@@ -982,23 +1037,29 @@ bool DPdfPage::updateHightLightAnnot(DPdfAnnot *dAnnot, QColor color, QString te
 
 bool DPdfPage::removeAnnot(DPdfAnnot *dAnnot)
 {
+    qDebug() << "Removing annotation";
     d_func()->loadPage();
 
     int index = d_func()->allAnnots().indexOf(dAnnot);
 
-    if (index < 0)
+    if (index < 0) {
+        qWarning() << "Annotation not found";
         return false;
+    }
 
     DPdfMutexLocker locker("DPdfPage::removeAnnot index = " + QString::number(this->index()));
 
-    if (!FPDFPage_RemoveAnnot(d_func()->m_page, index))
+    if (!FPDFPage_RemoveAnnot(d_func()->m_page, index)) {
+        qWarning() << "Failed to remove annotation";
         return false;
+    }
 
     const QList<DPdfAnnot *> &dAnnots = d_func()->allAnnots(); //only Load
     Q_UNUSED(dAnnots);
     d_func()->m_dAnnots.removeAll(dAnnot);
 
     emit annotRemoved(dAnnot);
+    qDebug() << "Annotation removed successfully";
 
     delete dAnnot;
 
@@ -1007,6 +1068,7 @@ bool DPdfPage::removeAnnot(DPdfAnnot *dAnnot)
 
 QVector<DPdfGlobal::PageSection> DPdfPage::search(const QString &text, bool matchCase, bool wholeWords)
 {
+    qDebug() << "Searching for text:" << text << "matchCase:" << matchCase << "wholeWords:" << wholeWords;
     d_func()->loadTextPage();
 
     DPdfMutexLocker locker("DPdfPage::search index = " + QString::number(this->index()));
@@ -1023,11 +1085,15 @@ QVector<DPdfGlobal::PageSection> DPdfPage::search(const QString &text, bool matc
 
     FPDF_SCHHANDLE schandle = FPDFText_FindStart(d_func()->m_textPage, text.utf16(), flags, 0);
     if (schandle) {
+        qDebug() << "Search started successfully";
         int page = d_func()->m_index;
         FPDF_PAGE pdfPage = FPDF_LoadPage(d_func()->m_doc, page);
         double pageHeight = FPDF_GetPageHeight(pdfPage);
         FPDF_TEXTPAGE textPage = d_func()->m_textPage;
+        
+        int matchCount = 0;
         while (FPDFText_FindNext(schandle)) {
+            matchCount++;
             FPDF_SCHHANDLE sh = schandle;
             QVector<QRectF> region;//一个section对应的region
             int idx = FPDFText_GetSchResultIndex(sh);
@@ -1056,6 +1122,9 @@ QVector<DPdfGlobal::PageSection> DPdfPage::search(const QString &text, bool matc
             }
             sections.append(section);
         }
+        qDebug() << "Found" << matchCount << "matches";
+    } else {
+        qWarning() << "Failed to start search";
     }
 
     FPDFText_FindClose(schandle);
