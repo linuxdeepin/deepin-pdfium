@@ -8,6 +8,7 @@
 #define CORE_FXCODEC_JBIG2_JBIG2_DEFINE_H_
 
 #include <stdint.h>
+#include <cstdint>
 
 #define JBIG2_OOB 1
 

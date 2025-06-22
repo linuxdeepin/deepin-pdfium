@@ -7,6 +7,7 @@
 #ifndef CORE_FXCODEC_FX_CODEC_H_
 #define CORE_FXCODEC_FX_CODEC_H_
 
+#include <cstdint>
 #include <map>
 
 #include "core/fxcrt/fx_safe_types.h"

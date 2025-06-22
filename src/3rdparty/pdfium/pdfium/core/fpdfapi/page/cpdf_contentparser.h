@@ -7,6 +7,7 @@
 #ifndef CORE_FPDFAPI_PAGE_CPDF_CONTENTPARSER_H_
 #define CORE_FPDFAPI_PAGE_CPDF_CONTENTPARSER_H_
 
+#include <cstdint>
 #include <memory>
 #include <set>
 #include <vector>

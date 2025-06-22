@@ -7,6 +7,8 @@
 #ifndef CORE_FXGE_SYSTEMFONTINFO_IFACE_H_
 #define CORE_FXGE_SYSTEMFONTINFO_IFACE_H_
 
+#include <cstdint>
+
 #include "core/fxge/cfx_fontmapper.h"
 #include "base/span.h"
 

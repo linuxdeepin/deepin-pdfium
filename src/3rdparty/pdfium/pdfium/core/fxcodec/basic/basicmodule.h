@@ -7,6 +7,7 @@
 #ifndef CORE_FXCODEC_BASIC_BASICMODULE_H_
 #define CORE_FXCODEC_BASIC_BASICMODULE_H_
 
+#include <cstdint>
 #include <memory>
 
 #include "core/fxcrt/fx_memory_wrappers.h"

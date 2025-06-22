@@ -8,6 +8,7 @@
 #define CORE_FXGE_DIB_CFX_CMYK_TO_SRGB_H_
 
 #include <stdint.h>
+#include <cstdint>
 
 #include <tuple>
 

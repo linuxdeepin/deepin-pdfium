@@ -7,6 +7,7 @@
 #ifndef CORE_FPDFAPI_PARSER_FPDF_PARSER_DECODE_H_
 #define CORE_FPDFAPI_PARSER_FPDF_PARSER_DECODE_H_
 
+#include <cstdint>
 #include <memory>
 #include <utility>
 #include <vector>

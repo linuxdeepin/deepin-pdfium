@@ -7,6 +7,8 @@
 #ifndef CORE_FXCODEC_JBIG2_JBIG2_BITSTREAM_H_
 #define CORE_FXCODEC_JBIG2_JBIG2_BITSTREAM_H_
 
+#include <cstdint>
+
 #include "core/fxcrt/retain_ptr.h"
 #include "base/span.h"
 

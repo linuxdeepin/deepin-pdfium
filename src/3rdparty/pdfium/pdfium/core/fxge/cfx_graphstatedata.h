@@ -7,6 +7,7 @@
 #ifndef CORE_FXGE_CFX_GRAPHSTATEDATA_H_
 #define CORE_FXGE_CFX_GRAPHSTATEDATA_H_
 
+#include <cstdint>
 #include <vector>
 
 #include "core/fxcrt/fx_system.h"

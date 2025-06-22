@@ -7,6 +7,7 @@
 #ifndef CORE_FPDFAPI_CMAPS_FPDF_CMAPS_H_
 #define CORE_FPDFAPI_CMAPS_FPDF_CMAPS_H_
 
+#include <cstdint>
 #include <stdint.h>
 
 #include "core/fxcrt/fx_string.h"

@@ -7,6 +7,7 @@
 #ifndef CORE_FXCODEC_JPX_JPX_DECODE_UTILS_H_
 #define CORE_FXCODEC_JPX_JPX_DECODE_UTILS_H_
 
+#include <cstdint>
 #include <stdint.h>
 
 #include <openjpeg.h>

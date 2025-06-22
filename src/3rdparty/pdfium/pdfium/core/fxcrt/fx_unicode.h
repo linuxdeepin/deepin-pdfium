@@ -7,6 +7,8 @@
 #ifndef CORE_FXCRT_FX_UNICODE_H_
 #define CORE_FXCRT_FX_UNICODE_H_
 
+#include <cstdint>
+
 #include "core/fxcrt/fx_system.h"
 
 // NOTE: Order matters, less-than/greater-than comparisons are used.

@@ -7,6 +7,8 @@
 #ifndef CORE_FPDFAPI_RENDER_CPDF_RENDEROPTIONS_H_
 #define CORE_FPDFAPI_RENDER_CPDF_RENDEROPTIONS_H_
 
+#include <cstdint>
+
 #include "core/fpdfapi/page/cpdf_occontext.h"
 #include "core/fpdfapi/page/cpdf_pageobject.h"
 #include "core/fxcrt/fx_system.h"

@@ -8,6 +8,7 @@
 #define PUBLIC_FPDF_EDIT_H_
 
 #include <stdint.h>
+#include <cstdint>
 
 // NOLINTNEXTLINE(build/include)
 #include "fpdfview.h"

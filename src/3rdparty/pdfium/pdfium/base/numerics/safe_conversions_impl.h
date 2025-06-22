@@ -5,6 +5,7 @@
 #ifndef THIRD_PARTY_BASE_NUMERICS_SAFE_CONVERSIONS_IMPL_H_
 #define THIRD_PARTY_BASE_NUMERICS_SAFE_CONVERSIONS_IMPL_H_
 
+#include <cstdint>
 #include <stdint.h>
 
 #include <limits>

@@ -7,6 +7,8 @@
 #ifndef CORE_FPDFAPI_FONT_CPDF_CID2UNICODEMAP_H_
 #define CORE_FPDFAPI_FONT_CPDF_CID2UNICODEMAP_H_
 
+#include <cstdint>
+
 #include "core/fpdfapi/font/cpdf_cidfont.h"
 #include "base/span.h"
 

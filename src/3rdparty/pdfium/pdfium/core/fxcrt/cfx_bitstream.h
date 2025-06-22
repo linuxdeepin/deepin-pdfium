@@ -7,6 +7,7 @@
 #ifndef CORE_FXCRT_CFX_BITSTREAM_H_
 #define CORE_FXCRT_CFX_BITSTREAM_H_
 
+#include <cstdint>
 #include <stdint.h>
 
 #include "core/fxcrt/unowned_ptr.h"

@@ -7,6 +7,7 @@
 #ifndef CORE_FXGE_AGG_FX_AGG_DRIVER_H_
 #define CORE_FXGE_AGG_FX_AGG_DRIVER_H_
 
+#include <cstdint>
 #include <memory>
 #include <vector>
 

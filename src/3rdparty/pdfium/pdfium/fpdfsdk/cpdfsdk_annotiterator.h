@@ -7,6 +7,7 @@
 #ifndef FPDFSDK_CPDFSDK_ANNOTITERATOR_H_
 #define FPDFSDK_CPDFSDK_ANNOTITERATOR_H_
 
+#include <cstdint>
 #include <vector>
 
 #include "core/fpdfdoc/cpdf_annot.h"

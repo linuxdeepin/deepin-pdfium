@@ -7,6 +7,7 @@
 #ifndef CORE_FXGE_DIB_CFX_DIBBASE_H_
 #define CORE_FXGE_DIB_CFX_DIBBASE_H_
 
+#include <cstdint>
 #include <memory>
 
 #include "core/fxcrt/fx_coordinates.h"

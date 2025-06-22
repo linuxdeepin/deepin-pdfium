@@ -7,6 +7,7 @@
 #ifndef FPDFSDK_CPDFSDK_INTERACTIVEFORM_H_
 #define FPDFSDK_CPDFSDK_INTERACTIVEFORM_H_
 
+#include <cstdint>
 #include <map>
 #include <memory>
 #include <vector>

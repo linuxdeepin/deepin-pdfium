@@ -7,6 +7,7 @@
 #ifndef CORE_FXGE_FX_DIB_H_
 #define CORE_FXGE_FX_DIB_H_
 
+#include <cstdint>
 #include <tuple>
 #include <utility>
 

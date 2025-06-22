@@ -5,6 +5,7 @@
 #ifndef CORE_FXGE_CFX_FILLRENDEROPTIONS_H_
 #define CORE_FXGE_CFX_FILLRENDEROPTIONS_H_
 
+#include <cstdint>
 #include <stdint.h>
 
 // Represents the options for filling paths.

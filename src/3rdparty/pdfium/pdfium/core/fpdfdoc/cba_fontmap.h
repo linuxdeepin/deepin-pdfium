@@ -7,6 +7,7 @@
 #ifndef CORE_FPDFDOC_CBA_FONTMAP_H_
 #define CORE_FPDFDOC_CBA_FONTMAP_H_
 
+#include <cstdint>
 #include <memory>
 #include <vector>
 

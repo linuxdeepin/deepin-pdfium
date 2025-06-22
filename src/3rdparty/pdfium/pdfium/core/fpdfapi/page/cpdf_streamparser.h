@@ -7,6 +7,8 @@
 #ifndef CORE_FPDFAPI_PAGE_CPDF_STREAMPARSER_H_
 #define CORE_FPDFAPI_PAGE_CPDF_STREAMPARSER_H_
 
+#include <cstdint>
+
 #include "core/fxcrt/string_pool_template.h"
 #include "core/fxcrt/weak_ptr.h"
 #include "base/span.h"

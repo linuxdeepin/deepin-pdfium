@@ -7,6 +7,7 @@
 #ifndef FXJS_CFX_GLOBALDATA_H_
 #define FXJS_CFX_GLOBALDATA_H_
 
+#include <cstdint>
 #include <memory>
 #include <vector>
 

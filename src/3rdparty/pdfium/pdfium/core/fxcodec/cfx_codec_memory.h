@@ -5,6 +5,7 @@
 #ifndef CORE_FXCODEC_CFX_CODEC_MEMORY_H_
 #define CORE_FXCODEC_CFX_CODEC_MEMORY_H_
 
+#include <cstdint>
 #include <memory>
 
 #include "core/fxcrt/fx_memory_wrappers.h"

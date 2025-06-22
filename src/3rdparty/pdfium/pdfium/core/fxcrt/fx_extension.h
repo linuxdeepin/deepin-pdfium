@@ -11,6 +11,7 @@
 
 #include <cctype>
 #include <cmath>
+#include <cstdint>
 #include <cwctype>
 #include <memory>
 

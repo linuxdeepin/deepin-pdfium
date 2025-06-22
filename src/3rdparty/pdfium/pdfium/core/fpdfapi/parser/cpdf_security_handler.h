@@ -7,6 +7,7 @@
 #ifndef CORE_FPDFAPI_PARSER_CPDF_SECURITY_HANDLER_H_
 #define CORE_FPDFAPI_PARSER_CPDF_SECURITY_HANDLER_H_
 
+#include <cstdint>
 #include <memory>
 
 #include "core/fxcrt/fx_string.h"

@@ -7,6 +7,7 @@
 #ifndef CORE_FPDFAPI_PAGE_CPDF_ICCPROFILE_H_
 #define CORE_FPDFAPI_PAGE_CPDF_ICCPROFILE_H_
 
+#include <cstdint>
 #include <memory>
 
 #include "core/fxcrt/observed_ptr.h"

@@ -7,6 +7,7 @@
 #ifndef CORE_FXCODEC_ICC_ICCMODULE_H_
 #define CORE_FXCODEC_ICC_ICCMODULE_H_
 
+#include <cstdint>
 #include <memory>
 
 #include "core/fxcodec/fx_codec_def.h"

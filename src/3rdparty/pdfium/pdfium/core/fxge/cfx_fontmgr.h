@@ -7,6 +7,7 @@
 #ifndef CORE_FXGE_CFX_FONTMGR_H_
 #define CORE_FXGE_CFX_FONTMGR_H_
 
+#include <cstdint>
 #include <map>
 #include <memory>
 

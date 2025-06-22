@@ -7,6 +7,8 @@
 #ifndef CORE_FDRM_FX_CRYPT_H_
 #define CORE_FDRM_FX_CRYPT_H_
 
+#include <cstdint>
+
 #include "core/fxcrt/fx_system.h"
 #include "base/span.h"
 

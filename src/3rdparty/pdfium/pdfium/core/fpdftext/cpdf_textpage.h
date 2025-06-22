@@ -7,6 +7,7 @@
 #ifndef CORE_FPDFTEXT_CPDF_TEXTPAGE_H_
 #define CORE_FPDFTEXT_CPDF_TEXTPAGE_H_
 
+#include <cstdint>
 #include <deque>
 #include <functional>
 #include <vector>

@@ -5,6 +5,7 @@
 #ifndef CORE_FPDFAPI_PARSER_CPDF_CROSS_REF_TABLE_H_
 #define CORE_FPDFAPI_PARSER_CPDF_CROSS_REF_TABLE_H_
 
+#include <cstdint>
 #include <map>
 #include <memory>
 
