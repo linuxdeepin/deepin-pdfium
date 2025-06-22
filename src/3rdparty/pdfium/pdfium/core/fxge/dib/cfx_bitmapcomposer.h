@@ -7,6 +7,7 @@
 #ifndef CORE_FXGE_DIB_CFX_BITMAPCOMPOSER_H_
 #define CORE_FXGE_DIB_CFX_BITMAPCOMPOSER_H_
 
+#include <cstdint>
 #include <vector>
 
 #include "core/fxcrt/fx_coordinates.h"

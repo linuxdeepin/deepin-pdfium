@@ -7,6 +7,7 @@
 #ifndef CORE_FPDFAPI_PAGE_CPDF_TRANSFERFUNCDIB_H_
 #define CORE_FPDFAPI_PAGE_CPDF_TRANSFERFUNCDIB_H_
 
+#include <cstdint>
 #include <vector>
 
 #include "core/fxcrt/retain_ptr.h"

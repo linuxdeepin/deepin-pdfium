@@ -7,6 +7,7 @@
 #ifndef CORE_FPDFDOC_CPDF_METADATA_H_
 #define CORE_FPDFDOC_CPDF_METADATA_H_
 
+#include <cstdint>
 #include <vector>
 
 #include "core/fxcrt/retain_ptr.h"

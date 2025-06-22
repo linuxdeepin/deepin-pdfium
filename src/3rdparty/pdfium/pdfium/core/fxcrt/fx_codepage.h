@@ -8,6 +8,7 @@
 #define CORE_FXCRT_FX_CODEPAGE_H_
 
 #include <stdint.h>
+#include <cstdint>
 
 #define FX_CODEPAGE_DefANSI 0
 #define FX_CODEPAGE_Symbol 42

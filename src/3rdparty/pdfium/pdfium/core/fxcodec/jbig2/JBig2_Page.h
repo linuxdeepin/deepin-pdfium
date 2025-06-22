@@ -7,6 +7,8 @@
 #ifndef CORE_FXCODEC_JBIG2_JBIG2_PAGE_H_
 #define CORE_FXCODEC_JBIG2_JBIG2_PAGE_H_
 
+#include <cstdint>
+
 #include "core/fxcrt/fx_system.h"
 
 struct JBig2PageInfo {

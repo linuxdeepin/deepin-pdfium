@@ -7,6 +7,7 @@
 #ifndef CORE_FPDFAPI_FONT_CPDF_CIDFONT_H_
 #define CORE_FPDFAPI_FONT_CPDF_CIDFONT_H_
 
+#include <cstdint>
 #include <memory>
 #include <vector>
 

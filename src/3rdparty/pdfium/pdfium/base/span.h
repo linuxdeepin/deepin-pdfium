@@ -5,6 +5,7 @@
 #ifndef THIRD_PARTY_BASE_SPAN_H_
 #define THIRD_PARTY_BASE_SPAN_H_
 
+#include <cstdint>
 #include <stddef.h>
 
 #include <algorithm>

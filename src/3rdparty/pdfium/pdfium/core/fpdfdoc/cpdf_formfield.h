@@ -7,6 +7,7 @@
 #ifndef CORE_FPDFDOC_CPDF_FORMFIELD_H_
 #define CORE_FPDFDOC_CPDF_FORMFIELD_H_
 
+#include <cstdint>
 #include <memory>
 #include <utility>
 #include <vector>

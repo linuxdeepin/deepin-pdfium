@@ -7,6 +7,7 @@
 #ifndef CORE_FPDFAPI_PAGE_CPDF_DEVICECS_H_
 #define CORE_FPDFAPI_PAGE_CPDF_DEVICECS_H_
 
+#include <cstdint>
 #include <set>
 
 #include "core/fpdfapi/page/cpdf_colorspace.h"

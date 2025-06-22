@@ -7,6 +7,7 @@
 #ifndef CORE_FXCODEC_JBIG2_JBIG2_ARITHDECODER_H_
 #define CORE_FXCODEC_JBIG2_JBIG2_ARITHDECODER_H_
 
+#include <cstdint>
 #include <stdint.h>
 
 #include "core/fxcrt/unowned_ptr.h"

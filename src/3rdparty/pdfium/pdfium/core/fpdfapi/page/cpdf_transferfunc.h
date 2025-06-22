@@ -7,6 +7,7 @@
 #ifndef CORE_FPDFAPI_PAGE_CPDF_TRANSFERFUNC_H_
 #define CORE_FPDFAPI_PAGE_CPDF_TRANSFERFUNC_H_
 
+#include <cstdint>
 #include <vector>
 
 #include "core/fxcrt/fx_memory_wrappers.h"

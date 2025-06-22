@@ -7,6 +7,7 @@
 #ifndef CORE_FPDFAPI_PARSER_CPDF_CRYPTO_HANDLER_H_
 #define CORE_FPDFAPI_PARSER_CPDF_CRYPTO_HANDLER_H_
 
+#include <cstdint>
 #include <memory>
 
 #include "core/fdrm/fx_crypt.h"

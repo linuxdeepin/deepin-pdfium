@@ -7,6 +7,7 @@
 #ifndef CORE_FXCODEC_JPX_CJPX_DECODER_H_
 #define CORE_FXCODEC_JPX_CJPX_DECODER_H_
 
+#include <cstdint>
 #include <memory>
 
 #include "core/fxcrt/unowned_ptr.h"

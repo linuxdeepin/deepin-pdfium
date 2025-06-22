@@ -7,6 +7,7 @@
 #ifndef CORE_FPDFAPI_PAGE_CPDF_FORM_H_
 #define CORE_FPDFAPI_PAGE_CPDF_FORM_H_
 
+#include <cstdint>
 #include <memory>
 #include <set>
 #include <utility>

@@ -7,6 +7,7 @@
 #ifndef CORE_FXGE_CFX_FOLDERFONTINFO_H_
 #define CORE_FXGE_CFX_FOLDERFONTINFO_H_
 
+#include <cstdint>
 #include <map>
 #include <memory>
 #include <vector>

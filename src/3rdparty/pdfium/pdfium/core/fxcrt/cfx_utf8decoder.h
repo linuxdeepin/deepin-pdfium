@@ -7,6 +7,8 @@
 #ifndef CORE_FXCRT_CFX_UTF8DECODER_H_
 #define CORE_FXCRT_CFX_UTF8DECODER_H_
 
+#include <cstdint>
+
 #include "core/fxcrt/cfx_widetextbuf.h"
 
 class CFX_UTF8Decoder {

@@ -7,6 +7,7 @@
 #ifndef CORE_FXCODEC_FAX_FAXMODULE_H_
 #define CORE_FXCODEC_FAX_FAXMODULE_H_
 
+#include <cstdint>
 #include <memory>
 
 #include "build/build_config.h"

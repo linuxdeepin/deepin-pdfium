@@ -7,6 +7,7 @@
 #ifndef CORE_FPDFAPI_PAGE_CPDF_STREAMCONTENTPARSER_H_
 #define CORE_FPDFAPI_PAGE_CPDF_STREAMCONTENTPARSER_H_
 
+#include <cstdint>
 #include <map>
 #include <memory>
 #include <set>

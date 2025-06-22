@@ -7,6 +7,7 @@
 #ifndef FPDFSDK_PWL_CPWL_EDIT_CTRL_H_
 #define FPDFSDK_PWL_CPWL_EDIT_CTRL_H_
 
+#include <cstdint>
 #include <memory>
 #include <utility>
 

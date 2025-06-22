@@ -7,6 +7,8 @@
 #ifndef CORE_FXCRT_CFX_SEEKABLESTREAMPROXY_H_
 #define CORE_FXCRT_CFX_SEEKABLESTREAMPROXY_H_
 
+#include <cstdint>
+
 #include "core/fxcrt/fx_stream.h"
 #include "core/fxcrt/fx_system.h"
 #include "core/fxcrt/retain_ptr.h"

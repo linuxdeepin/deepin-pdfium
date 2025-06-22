@@ -7,6 +7,7 @@
 #ifndef CORE_FPDFAPI_PARSER_CPDF_ENCRYPTOR_H_
 #define CORE_FPDFAPI_PARSER_CPDF_ENCRYPTOR_H_
 
+#include <cstdint>
 #include <stdint.h>
 
 #include <vector>

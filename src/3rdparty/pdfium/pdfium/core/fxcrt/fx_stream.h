@@ -7,6 +7,8 @@
 #ifndef CORE_FXCRT_FX_STREAM_H_
 #define CORE_FXCRT_FX_STREAM_H_
 
+#include <cstdint>
+
 #include "core/fxcrt/fx_string.h"
 #include "core/fxcrt/fx_system.h"
 #include "core/fxcrt/retain_ptr.h"

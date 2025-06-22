@@ -7,6 +7,7 @@
 #ifndef CORE_FPDFAPI_PARSER_CFDF_DOCUMENT_H_
 #define CORE_FPDFAPI_PARSER_CFDF_DOCUMENT_H_
 
+#include <cstdint>
 #include <memory>
 
 #include "core/fpdfapi/parser/cpdf_indirect_object_holder.h"

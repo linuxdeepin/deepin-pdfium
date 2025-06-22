@@ -7,6 +7,7 @@
 #ifndef CORE_FXCRT_BYTESTRING_H_
 #define CORE_FXCRT_BYTESTRING_H_
 
+#include <cstdint>
 #include <functional>
 #include <iterator>
 #include <ostream>

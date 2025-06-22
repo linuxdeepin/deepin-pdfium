@@ -7,6 +7,8 @@
 #ifndef CORE_FXCRT_CFX_DATETIME_H_
 #define CORE_FXCRT_CFX_DATETIME_H_
 
+#include <cstdint>
+
 #include "core/fxcrt/fx_system.h"
 
 bool FX_IsLeapYear(int32_t iYear);

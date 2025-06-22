@@ -5,6 +5,7 @@
 #ifndef CORE_FXCRT_UNOWNED_PTR_H_
 #define CORE_FXCRT_UNOWNED_PTR_H_
 
+#include <cstdint>
 #include <functional>
 #include <memory>
 #include <type_traits>

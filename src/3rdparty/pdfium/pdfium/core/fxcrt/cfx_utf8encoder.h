@@ -7,6 +7,7 @@
 #ifndef CORE_FXCRT_CFX_UTF8ENCODER_H_
 #define CORE_FXCRT_CFX_UTF8ENCODER_H_
 
+#include <cstdint>
 #include <vector>
 
 #include "core/fxcrt/fx_memory_wrappers.h"
