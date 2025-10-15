@@ -1,3 +1,9 @@
+deepin-pdfium (1.5.4) unstable; urgency=medium
+
+  * fix: Fix url link access
+
+ -- re2zero <yangwu@uniontech.com>  Wed, 15 Oct 2025 13:23:54 +0800
+
 deepin-pdfium (1.5.3) unstable; urgency=medium
 
   * Improves the way the application handles PDF files located on remote filesystems like SMB:
