@@ -1,3 +1,9 @@
+deepin-pdfium (1.5.6) unstable; urgency=medium
+
+  * update version to 1.5.6
+
+ -- zhanghongyuan <zhanghongyuan@uniontech.com>  Thu, 16 Oct 2025 22:49:08 +0800
+
 deepin-pdfium (1.5.5) unstable; urgency=medium
 
   * update version to 1.5.5
