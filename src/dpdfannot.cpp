@@ -7,19 +7,19 @@
 
 DPdfAnnot::AnnotType DPdfAnnot::type()
 {
-    qDebug() << "Getting annotation type:" << m_type;
+    // qDebug() << "Getting annotation type:" << m_type;
     return m_type;
 }
 
 void DPdfAnnot::setText(QString text)
 {
-    qDebug() << "Setting annotation text:" << text;
+    // qDebug() << "Setting annotation text:" << text;
     m_text = text;
 }
 
 QString DPdfAnnot::text()
 {
-    qDebug() << "Getting annotation text:" << m_text;
+    // qDebug() << "Getting annotation text:" << m_text;
     return m_text;
 }
 
@@ -173,19 +173,19 @@ void DPdfLinkAnnot::setUrl(QString url)
 
 QString DPdfLinkAnnot::url() const
 {
-    qDebug() << "Getting link annotation URL:" << m_url;
+    // qDebug() << "Getting link annotation URL:" << m_url;
     return m_url;
 }
 
 void DPdfLinkAnnot::setFilePath(QString filePath)
 {
-    qDebug() << "Setting link annotation file path:" << filePath;
+    // qDebug() << "Setting link annotation file path:" << filePath;
     m_filePath = filePath;
 }
 
 QString DPdfLinkAnnot::filePath() const
 {
-    qDebug() << "Getting link annotation file path:" << m_filePath;
+    // qDebug() << "Getting link annotation file path:" << m_filePath;
     return m_filePath;
 }
 
@@ -199,7 +199,7 @@ void DPdfLinkAnnot::setPage(int index, float left, float top)
 
 int DPdfLinkAnnot::pageIndex() const
 {
-    qDebug() << "Getting link annotation page index:" << m_index;
+    // qDebug() << "Getting link annotation page index:" << m_index;
     return m_index;
 }
 
@@ -223,7 +223,7 @@ int DPdfLinkAnnot::linkType() const
 bool DPdfLinkAnnot::isValid() const
 {
     bool valid = (Goto == m_linkType) ? (m_index != -1) : true;
-    qDebug() << "Checking link annotation validity:" << valid;
+    // qDebug() << "Checking link annotation validity:" << valid;
     return valid;
 }
 

@@ -132,18 +132,18 @@ DPdfDocPrivate::DPdfDocPrivate()
 DPdfDocPrivate::~DPdfDocPrivate()
 {
     DPdfMutexLocker locker("DPdfDocPrivate::~DPdfDocPrivate()");
-    qDebug() << "Cleaning up DPdfDocPrivate resources";
+    // qDebug() << "Cleaning up DPdfDocPrivate resources";
 
     qDeleteAll(m_pages);
 
     if (nullptr != m_docHandler) {
-        qDebug() << "Closing PDF document handler";
+        // qDebug() << "Closing PDF document handler";
         FPDF_CloseDocument(reinterpret_cast<FPDF_DOCUMENT>(m_docHandler));
     }
     
     if (!m_tempFilePath.isEmpty() && QFile::exists(m_tempFilePath)) {
         QFile::remove(m_tempFilePath);
-        qDebug() << "Temporary file deleted:" << m_tempFilePath;
+        // qDebug() << "Temporary file deleted:" << m_tempFilePath;
     }
 }
 

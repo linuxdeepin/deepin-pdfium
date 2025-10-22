@@ -1,3 +1,10 @@
+deepin-pdfium (1.5.7) unstable; urgency=medium
+
+  * update version to 1.5.7
+  * fix: coredump when application destruction.
+
+ -- re2zero <yangwu@uniontech.com>  Wed, 22 Oct 2025 15:25:13 +0800
+
 deepin-pdfium (1.5.6) unstable; urgency=medium
 
   * update version to 1.5.6

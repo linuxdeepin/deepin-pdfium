@@ -28,25 +28,26 @@ void DPdfGlobal::init()
 
 void DPdfGlobal::destory()
 {
-    qDebug() << "Destroying PDF library";
+    // qDebug() << "Destroying PDF library";
     if (initialized) {
         FPDF_DestroyLibrary();
         initialized = false;
-        qDebug() << "PDF library destroyed successfully";
+        // qDebug() << "PDF library destroyed successfully";
     } else {
-        qDebug() << "PDF library was not initialized";
+        // qDebug() << "PDF library was not initialized";
     }
 }
 
 DPdfGlobal::DPdfGlobal()
 {
-    qDebug() << "Creating DPdfGlobal instance";
+    // qDebug() << "Creating DPdfGlobal instance";
     init();
 }
 
 DPdfGlobal::~DPdfGlobal()
 {
-    qDebug() << "Destroying DPdfGlobal instance";
+    // don’t print logs when application destruction which cause coredump
+    // qDebug() << "Destroying DPdfGlobal instance";
     destory();
 }
 
