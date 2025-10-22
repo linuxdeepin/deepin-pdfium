@@ -34,3 +34,7 @@ debian/*.log
 
 build/
 .vscode/
+
+# AI configuration
+.promptx/
+.spec-workflow/

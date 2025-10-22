@@ -149,14 +149,14 @@ DPdfPagePrivate::DPdfPagePrivate(DPdfDocHandler *handler, int index, qreal xRes,
 
 DPdfPagePrivate::~DPdfPagePrivate()
 {
-    qDebug() << "Destroying page private object for index:" << m_index;
+    // qDebug() << "Destroying page private object for index:" << m_index;
     if (m_textPage) {
-        qDebug() << "Closing text page";
+        // qDebug() << "Closing text page";
         FPDFText_ClosePage(m_textPage);
     }
 
     if (m_page) {
-        qDebug() << "Closing PDF page";
+        // qDebug() << "Closing PDF page";
         FPDF_ClosePage(m_page);
     }
 
