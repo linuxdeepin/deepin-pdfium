@@ -328,8 +328,8 @@ bool DPdfPagePrivate::loadAnnots()
 
             //获取类型
             if (PDFACTION_URI == type) {
-                char uri[256] = {0};
-                unsigned long lenth = FPDFAction_GetURIPath(m_doc, action, uri, 256);
+                char uri[2048] = {0};
+                unsigned long lenth = FPDFAction_GetURIPath(m_doc, action, uri, 2048);
                 if (0 != lenth) {
                     dAnnot->setUrl(uri);
                 }
