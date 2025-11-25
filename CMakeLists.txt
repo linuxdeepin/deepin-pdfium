@@ -79,19 +79,11 @@ include(CMakePackageConfigHelpers)
 set(INCLUDE_INSTALL_DIR ${CMAKE_INSTALL_INCLUDEDIR}/deepin-pdfium)
 set(LIB_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR})
 
-# 创建Qt5版本库
-if(Qt5_FOUND)
-    message(STATUS ">>> Enable Qt5 version of the library")
+if(Qt6_FOUND)
+    set(QT_DESIRED_VERSION 6)
+else()
     set(QT_DESIRED_VERSION 5)
-    set(TARGET_NAME ${PROJECT_NAME}5)
-    include(target.cmake)
 endif()
 
-# 创建Qt6版本库
-if(Qt6_FOUND)
-    message(STATUS ">>> Enable Qt6 version of the library")
-    # keep the same project name for Qt6 in order to compability with other applications, ie. DFM
-    set(QT_DESIRED_VERSION 6)
-    set(TARGET_NAME ${PROJECT_NAME})
-    include(target.cmake)
-endif()
+set(TARGET_NAME ${PROJECT_NAME})
+include(target.cmake)
