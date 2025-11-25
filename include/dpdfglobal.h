@@ -11,7 +11,9 @@
 #include <QDebug>
 #include <QElapsedTimer>
 #include <QRectF>
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 #include <QRecursiveMutex>
+#endif
 
 #ifndef BUILD_DEEPDF_STATIC
 #    if defined(BUILD_DEEPDF_LIB)
