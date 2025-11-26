@@ -1,3 +1,9 @@
+deepin-pdfium (1.5.8) unstable; urgency=medium
+
+  * chore: Adjusted build and packaging strategy
+
+ -- wangrong <wangrong@uniontech.com>  Wed, 26 Nov 2025 13:29:39 +0800
+
 deepin-pdfium (1.5.7) unstable; urgency=medium
 
   * update version to 1.5.7
