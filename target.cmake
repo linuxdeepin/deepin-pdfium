@@ -17,15 +17,15 @@ target_include_directories(${TARGET_NAME}
 target_link_libraries(${TARGET_NAME}
     PRIVATE
         pdfium
-        Qt${QT_DESIRED_VERSION}::Core
-        Qt${QT_DESIRED_VERSION}::Gui
+        Qt${QT_VERSION_MAJOR}::Core
+        Qt${QT_VERSION_MAJOR}::Gui
         ${DEPS_LIBRARIES}
         z
         jpeg
         icuuc
 )
 
-# 安装Qt6版本
+# Install library
 install(TARGETS ${TARGET_NAME}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
@@ -39,7 +39,7 @@ install(FILES
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${TARGET_NAME}
 )
 
-# 生成Qt6版本的pkg-config文件
+# Generate pkg-config file
 configure_file(
     ${CMAKE_CURRENT_SOURCE_DIR}/deepin-pdfium.pc.in
     ${CMAKE_CURRENT_BINARY_DIR}/${TARGET_NAME}.pc

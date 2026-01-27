@@ -1,10 +1,11 @@
 prefix=@CMAKE_INSTALL_PREFIX@
 exec_prefix=${prefix}
-libdir=${prefix}/@CMAKE_INSTALL_LIBDIR@
+libdir=@CMAKE_INSTALL_LIBDIR@
 includedir=${prefix}/@CMAKE_INSTALL_INCLUDEDIR@/@TARGET_NAME@
 
 Name: @TARGET_NAME@
-Description: @PROJECT_DESCRIPTION@ (Qt@QT_DESIRED_VERSION@ version)
+Description: @PROJECT_DESCRIPTION@ (Qt@QT_VERSION_MAJOR@ version)
 Version: @PROJECT_VERSION@
 Libs: -L${libdir} -l@TARGET_NAME@
 Cflags: -I${includedir}
+Requires: Qt@QT_VERSION_MAJOR@Core Qt@QT_VERSION_MAJOR@Gui
