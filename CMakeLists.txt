@@ -2,6 +2,18 @@ cmake_minimum_required(VERSION 3.15)
 
 set(VERSION "1.0.0" CACHE STRING "PDF rendering library based on PDFium")
 
+# Normalize VERSION format to handle irregular inputs
+if(DEFINED VERSION)
+    # Extract major.minor.patch from VERSION string (e.g., from "1.5.8+u001" to "1.5.8")
+    if(VERSION MATCHES "^([0-9]+\\.[0-9]+\\.[0-9]+)")
+        set(VERSION "${CMAKE_MATCH_1}")
+    else()
+        # If no valid semver found, default to "1.0.0"
+        set(VERSION "1.0.0")
+        message(WARNING "VERSION does not match semver format, defaulted to ${VERSION}")
+    endif()
+endif()
+
 project(deepin-pdfium
     VERSION ${VERSION}
     DESCRIPTION "PDF rendering library based on PDFium"
@@ -39,13 +51,13 @@ execute_process(
 )
 add_definitions(-DSYSTEMPAGESIZE=${SYSTEM_PAGE_SIZE})
 
-# Qt6必须放前面，否则高版本cmake存在问题
-find_package(Qt6 COMPONENTS Core Gui QUIET)
-find_package(Qt5 COMPONENTS Core Gui QUIET)
+# Auto-detect Qt version (tries Qt6 first, falls back to Qt5)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core)
+message(STATUS "Found Qt version: ${QT_VERSION_MAJOR}")
 
-if(NOT Qt5_FOUND AND NOT Qt6_FOUND)
-    message(FATAL_ERROR "Neither Qt5 nor Qt6 found - please install at least one")
-endif()
+# Find Qt with the detected version
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Gui)
+
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(DEPS REQUIRED
     chardet
@@ -78,12 +90,6 @@ include(CMakePackageConfigHelpers)
 
 set(INCLUDE_INSTALL_DIR ${CMAKE_INSTALL_INCLUDEDIR}/deepin-pdfium)
 set(LIB_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR})
-
-if(Qt6_FOUND)
-    set(QT_DESIRED_VERSION 6)
-else()
-    set(QT_DESIRED_VERSION 5)
-endif()
 
 set(TARGET_NAME ${PROJECT_NAME})
 include(target.cmake)
